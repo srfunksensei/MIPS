@@ -1,0 +1,1144 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+Z:\home\qqb\Fax\IV-godina\VII_semestar\MIPS\Projekat\program8051\program8051.uvproj
+Project File Date:  03/15/2011
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0AFEH BYTE (137%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3398
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B01H BYTE (137%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3370
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(107): error C141: syntax error near 'small'
+program8051.c(110): error C129: missing ';' before '&='
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B39H BYTE (140%) *
+******************************************************************************
+Program Size: data=103.6 xdata=30713 code=3475
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B43H BYTE (140%) *
+******************************************************************************
+Program Size: data=97.6 xdata=30713 code=3485
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B20H BYTE (139%) *
+******************************************************************************
+Program Size: data=105.6 xdata=30713 code=3450
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1FH BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3400
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B21H BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3402
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B1CH BYTE (138%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B21H BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3402
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B23H BYTE (139%) *
+******************************************************************************
+Program Size: data=100.6 xdata=30713 code=3440
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B21H BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3402
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(108): warning C245: unknown #pragma, line ignored
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B21H BYTE (139%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3402
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(108): warning C245: unknown #pragma, line ignored
+program8051.c(113): error C202: 'LOCK': undefined identifier
+program8051.c(113): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(119): error C195: '*' illegal indirection
+program8051.c(129): error C195: '*' illegal indirection
+program8051.c(151): error C202: 'UNLOCK': undefined identifier
+program8051.c(151): error C141: syntax error near '}'
+program8051.c(162): error C202: 'LOCK': undefined identifier
+program8051.c(162): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(172): error C202: 'UNLOCK': undefined identifier
+program8051.c(172): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(108): warning C245: unknown #pragma, line ignored
+program8051.c(113): error C202: 'LOCK': undefined identifier
+program8051.c(113): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(119): error C195: '*' illegal indirection
+program8051.c(129): error C195: '*' illegal indirection
+program8051.c(151): error C202: 'UNLOCK': undefined identifier
+program8051.c(151): error C141: syntax error near '}'
+program8051.c(162): error C202: 'LOCK': undefined identifier
+program8051.c(162): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(172): error C202: 'UNLOCK': undefined identifier
+program8051.c(172): error C141: syntax error near '}'
+program8051.c(484): error C141: syntax error near 'if'
+program8051.c(564): error C202: 'STOP_SERIAL': undefined identifier
+program8051.c(564): error C141: syntax error near 'IE'
+program8051.c(572): error C202: 'START_SERIAL': undefined identifier
+program8051.c(572): error C141: syntax error near 'SBUF'
+program8051.c(577): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(577): error C141: syntax error near 'protocol_phase'
+program8051.c(609): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(609): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(112): error C202: 'LOCK': undefined identifier
+program8051.c(112): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(118): error C195: '*' illegal indirection
+program8051.c(128): error C195: '*' illegal indirection
+program8051.c(150): error C202: 'UNLOCK': undefined identifier
+program8051.c(150): error C141: syntax error near '}'
+program8051.c(161): error C202: 'LOCK': undefined identifier
+program8051.c(161): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(171): error C202: 'UNLOCK': undefined identifier
+program8051.c(171): error C141: syntax error near '}'
+program8051.c(483): error C141: syntax error near 'if'
+program8051.c(563): error C202: 'STOP_SERIAL': undefined identifier
+program8051.c(563): error C141: syntax error near 'IE'
+program8051.c(571): error C202: 'START_SERIAL': undefined identifier
+program8051.c(571): error C141: syntax error near 'SBUF'
+program8051.c(576): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(576): error C141: syntax error near 'protocol_phase'
+program8051.c(608): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(608): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(149): error C202: 'UNLOCK': undefined identifier
+program8051.c(149): error C141: syntax error near '}'
+program8051.c(160): error C202: 'LOCK': undefined identifier
+program8051.c(160): error C141: syntax error near 'cur_buffer_ptr'
+program8051.c(170): error C202: 'UNLOCK': undefined identifier
+program8051.c(170): error C141: syntax error near '}'
+program8051.c(564): error C202: 'UNLOCK_KEYBORD': undefined identifier
+program8051.c(564): error C141: syntax error near '}'
+program8051.c(575): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(575): error C141: syntax error near 'protocol_phase'
+program8051.c(606): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(606): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(561): error C202: 'UNLOCK_KEYBORD': undefined identifier
+program8051.c(561): error C141: syntax error near '}'
+program8051.c(572): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(572): error C141: syntax error near 'protocol_phase'
+program8051.c(603): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(603): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(561): error C202: 'UNLOCK_KEYBORAD': undefined identifier
+program8051.c(561): error C141: syntax error near '}'
+program8051.c(572): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(572): error C141: syntax error near 'protocol_phase'
+program8051.c(603): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(603): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(561): error C202: 'UNLOCK_KEYBORAD': undefined identifier
+program8051.c(561): error C141: syntax error near '}'
+program8051.c(572): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(572): error C141: syntax error near 'protocol_phase'
+program8051.c(603): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(603): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(572): error C202: 'START_RECEIVE': undefined identifier
+program8051.c(572): error C141: syntax error near 'protocol_phase'
+program8051.c(603): error C202: 'STOP_RECEIVE': undefined identifier
+program8051.c(603): error C141: syntax error near 'STOP_SERIAL'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(604): error C202: 'STOP_SERIAL': undefined identifier
+program8051.c(604): error C141: syntax error near 'cur_database_ptr'
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B58H BYTE (141%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3457
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B50H BYTE (141%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3480
+LINK/LOCATE RUN COMPLETE.  4 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B58H BYTE (141%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3457
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B58H BYTE (141%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3457
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(283): error C202: 'START_SERIAL': undefined identifier
+program8051.c(283): error C141: syntax error near 'IE'
+program8051.c(417): error C233: 'keyEnd': undefined label
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B46H BYTE (140%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3439
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B3DH BYTE (140%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3430
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+program8051.c(103): error C252: misplaced primary control, line ignored
+program8051.c(116): error C195: '*' illegal indirection
+program8051.c(126): error C195: '*' illegal indirection
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B35H BYTE (140%) *
+******************************************************************************
+Program Size: data=104.6 xdata=30713 code=3453
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51L.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B2FH BYTE (139%) *
+******************************************************************************
+Program Size: data=103.6 xdata=30713 code=3416
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?DISPLAY_REFRESH?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51C.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B3BH BYTE (140%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B3AH BYTE (140%) *
+******************************************************************************
+Program Size: data=100.6 xdata=30713 code=3463
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?KEYBOARD?PROGRAM8051
+    CALLER2: ?PR?TIME?PROGRAM8051
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_?FILL_DISPLAY_BUF?PROGRAM8051
+    CALLER1: ?PR?TIME?PROGRAM8051
+    CALLER2: ?PR?SERIAL?PROGRAM8051
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created
+Build target 'Target 1'
+compiling program8051.c...
+linking...
+BL51 BANKED LINKER/LOCATER V6.22 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0B3BH BYTE (140%) *
+******************************************************************************
+Program Size: data=89.6 xdata=30713 code=3428
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+*** FATAL ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (-----)
+    LIMIT:   0800H BYTES
+Target not created

@@ -1,0 +1,4 @@
+TRANSFER
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051.LIB"

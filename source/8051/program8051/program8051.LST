@@ -1,0 +1,3085 @@
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE PROGRAM8051
+OBJECT MODULE PLACED IN program8051.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe program8051.c WARNINGLEVEL(0) OPTIMIZE(9,SIZE) BROWSE DEBUG OBJECTEXTEND CO
+                    -DE LISTINCLUDE SYMBOLS
+
+line level    source
+
+   1          
+   2          #include <program8051.h>
+   1      =1  
+   2      =1  
+   3      =1  #ifndef __PROGRAM8051_H__
+   4      =1  #define __PROGRAM8051_H__
+   5      =1  
+   6      =1  /*===========================================================================================
+   7      =1                                                                  SFR REGISTERS                                                                     
+   8      =1  ===========================================================================================*/
+   9      =1  
+  10      =1  sfr P0    = 0x80;       /* port 0 - adr and data */
+  11      =1  sfr P1    = 0x90;       /* port 1 - printer */ 
+  12      =1  sfr P2    = 0xA0;       /* port 2 - adr */
+  13      =1  sfr P3    = 0xB0;       /* port 3 - control 0..7 [RxD,TxD,\INT0,\INT1,\T0,\T1,WR,RD]*/
+  14      =1  sfr PSW   = 0xD0;       /* [CY,AC,F0,RS1,RS0, ,OV,P]*/
+  15      =1  sfr ACC   = 0xE0;       /* akomulator */
+  16      =1  sfr B     = 0xF0;       /* pomocni */
+  17      =1  sfr SP    = 0x81;       /* zadnji uneti , rasete ka visim lokacijama*/
+  18      =1  sfr DPL   = 0x82;       /* pokazivac na eksternu memoriju - nizi bajt */
+  19      =1  sfr DPH   = 0x83;       /* pokazivac na eksternu memoriju - visi bajt */
+  20      =1  sfr PCON  = 0x87;       /* kontrolni: [SMOD,-,-,-,GF1,GF0,PD,IDL]*/
+  21      =1  sfr TCON  = 0x88;       /* kontroni : [TF1,TR1,TF0,TR0]*/
+  22      =1  sfr TMOD  = 0x89;       /* mod tajmera : [t1-gate,t1-C/T,t1-M1,t1-M0,t0-gate,t0-C/T,t0-M1,t0-M0,IE1,IT1,IE0,IT0]
+             -*/
+  23      =1  sfr TL0   = 0x8A;       /* T0 low data */
+  24      =1  sfr TL1   = 0x8B;       /* T0 high data */
+  25      =1  sfr TH0   = 0x8C;       /* T1 low data */
+  26      =1  sfr TH1   = 0x8D;       /* T1 high data */
+  27      =1  sfr IE    = 0xA8;       /* enable interrupt: [EA,-,-,mser,mt1,me1,mt0,me0] */
+  28      =1  sfr IP    = 0xB8;       /* interrupt priority: [-,-,-,ser,t1,e1,t0,e0] */ 
+  29      =1  sfr SCON  = 0x98;       /* kontrolni: [SM0,SM1,SM2,REN,TB8,RB8,TI,RI] */ 
+  30      =1  sfr SBUF  = 0x99;       /* data to transmit or received data */
+  31      =1  /*  PSW  */
+  32      =1  sbit CY    = PSW^7;
+  33      =1  sbit AC    = PSW^6;
+  34      =1  sbit F0    = PSW^5;
+  35      =1  sbit RS1   = PSW^4;
+  36      =1  sbit RS0   = PSW^3;
+  37      =1  sbit OV    = PSW^2;
+  38      =1  sbit P     = PSW^0; 
+  39      =1  /*  TCON  */
+  40      =1  sbit TF1   = TCON^7;
+  41      =1  sbit TR1   = TCON^6;
+  42      =1  sbit TF0   = TCON^5;
+  43      =1  sbit TR0   = TCON^4;
+  44      =1  sbit IE1   = TCON^3;
+  45      =1  sbit IT1   = TCON^2;
+  46      =1  sbit IE0   = TCON^1;
+  47      =1  sbit IT0   = TCON^0;
+  48      =1  /*  IE  */
+  49      =1  sbit EA    = IE^7;
+  50      =1  sbit ES    = IE^4;
+  51      =1  sbit ET1   = IE^3;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 2   
+
+  52      =1  sbit EX1   = IE^2;
+  53      =1  sbit ET0   = IE^1;
+  54      =1  sbit EX0   = IE^0;
+  55      =1  /*  IP  */
+  56      =1  sbit PS    = IP^4;
+  57      =1  sbit PT1   = IP^3;
+  58      =1  sbit PX1   = IP^2;
+  59      =1  sbit PT0   = IP^1;
+  60      =1  sbit PX0   = IP^0;
+  61      =1  /*  P3  */
+  62      =1  sbit RD    = P3^7;
+  63      =1  sbit WR    = P3^6;
+  64      =1  sbit T1    = P3^5;
+  65      =1  sbit T0    = P3^4;
+  66      =1  sbit INT1  = P3^3;
+  67      =1  sbit INT0  = P3^2;
+  68      =1  sbit TXD   = P3^1;
+  69      =1  sbit RXD   = P3^0;
+  70      =1  /*  SCON  */
+  71      =1  sbit SM0   = SCON^7;
+  72      =1  sbit SM1   = SCON^6;
+  73      =1  sbit SM2   = SCON^5;
+  74      =1  sbit REN   = SCON^4;
+  75      =1  sbit TB8   = SCON^3;
+  76      =1  sbit RB8   = SCON^2;
+  77      =1  sbit TI    = SCON^1;
+  78      =1  sbit RI    = SCON^0;
+  79      =1  
+  80      =1  /*===========================================================================================
+  81      =1                                                                  CONSTANTS                                                                         
+  82      =1  ===========================================================================================*/
+  83      =1  
+  84      =1  /*----------------------------------------------------------
+  85      =1                                          PAL16L8
+  86      =1  ------------------------------------------------------------
+  87      =1  keyCS(pin12)=\pin16*pin15*pin14*pin13*\pin1*
+  88      =1                            *\pin2*\pin3*\pin4*\pin5*\pin6*
+  89      =1                            *\pin7*\pin8*\pin9*\pin11
+  90      =1  displayCS(pin19)=\pin16*pin15*pin14*pin13*\pin1*
+  91      =1                                   *pin2*\pin3*\pin4*\pin5*\pin6*
+  92      =1                               *\pin7*\pin8*\pin9*\pin11  */
+  93      =1  
+  94      =1  
+  95      =1  #define START_T0 TCON|=0x10;
+  96      =1  #define STOP_T0 TCON&=0xEF;
+  97      =1  #define START_LAD  key_portC|=0x01;
+  98      =1  #define STOP_LAD        key_portC&=0xFE;
+  99      =1  #define START_PRINT     key_portC|=0x02;
+ 100      =1  #define STOP_PRINT      key_portC&=0xFD;
+ 101      =1  #define LOCK_KEYBOARD  IE&=0xFE;
+ 102      =1  #define UNLOCK_KEYBOARD IE|=0x01;
+ 103      =1  #define RESET_STF SCON&=0xFD; 
+ 104      =1  #define RESET_SRF SCON&=0xFE;
+ 105      =1  #define LOCK_SERIAL      IE&=0xEF;
+ 106      =1  #define UNLOCK_SERIAL IE|=0x10;
+ 107      =1  #define START_RECEIVE SCON|=0x10;
+ 108      =1  #define STOP_RECEIVE  SCON&=0xEF;
+ 109      =1  
+ 110      =1  /*----------------------------------------------------------
+ 111      =1                                  DISPLAY CONSTANTS
+ 112      =1  ----------------------------------------------------------*/
+ 113      =1  
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 3   
+
+ 114      =1  unsigned char code select_seg0 =        0x00; 
+ 115      =1  unsigned char code select_seg1 =        0x01;
+ 116      =1  unsigned char code select_seg2 =        0x02;
+ 117      =1  unsigned char code select_seg3 =        0x03;
+ 118      =1  unsigned char code select_seg4 =        0x04;
+ 119      =1  unsigned char code select_seg5 =        0x05;
+ 120      =1  unsigned char code select_seg6 =        0x06;
+ 121      =1  unsigned char code select_seg7 =        0x07;
+ 122      =1  unsigned char code select_seg8 =        0x0F;
+ 123      =1  unsigned char code select_seg9 =        0x17;
+ 124      =1  unsigned char code select_seg10 =       0x1F;
+ 125      =1  unsigned char code select_seg11 =       0x27;
+ 126      =1  unsigned char code select_seg12 =       0x2F;
+ 127      =1  unsigned char code select_seg13 =       0x37;
+ 128      =1  unsigned char code select_seg14 =       0x3F;
+ 129      =1  unsigned char code select_seg15 =       0x7F;
+ 130      =1  unsigned char code select_seg16 =       0xBF;
+ 131      =1  
+ 132      =1  /* null */
+ 133      =1  unsigned char code unselected_seg =     0xFF;
+ 134      =1  unsigned char code display_null =       0xFF;
+ 135      =1  /* numbers */
+ 136      =1  unsigned char code display0_c =         0x19;
+ 137      =1  unsigned char code display0_b =         0x98;
+ 138      =1  unsigned char code display1_c =         0xF7;
+ 139      =1  unsigned char code display1_b =         0xEF;   
+ 140      =1  unsigned char code display2_c =         0x3C;           
+ 141      =1  unsigned char code display2_b =         0x3C;
+ 142      =1  unsigned char code display3_c =         0x3C;
+ 143      =1  unsigned char code display3_b =         0x78;
+ 144      =1  unsigned char code display4_c =         0XDC;
+ 145      =1  unsigned char code display4_b =         0x7B;
+ 146      =1  unsigned char code display5_c =         0x1E;
+ 147      =1  unsigned char code display5_b =         0x78;
+ 148      =1  unsigned char code display6_c =         0x1E;   
+ 149      =1  unsigned char code display6_b =         0x38;           
+ 150      =1  unsigned char code display7_c =         0x3D;           
+ 151      =1  unsigned char code display7_b =         0xFB;           
+ 152      =1  unsigned char code display8_c =         0x1C;           
+ 153      =1  unsigned char code display8_b =         0x38;
+ 154      =1  unsigned char code display9_c =         0x1C;
+ 155      =1  unsigned char code display9_b =         0x78;
+ 156      =1  unsigned char code displayDD_c =        0xF7;   
+ 157      =1  unsigned char code displayDD_b =        0xEF;
+ 158      =1  /* letters */
+ 159      =1  unsigned char code displayA_c =         0x1C;
+ 160      =1  unsigned char code displayA_b =         0x3B;
+ 161      =1  unsigned char code displayB_c =         0x35;
+ 162      =1  unsigned char code displayB_b =         0x68;
+ 163      =1  unsigned char code displayC_c =         0x1F;
+ 164      =1  unsigned char code displayC_b =         0xBC;
+ 165      =1  unsigned char code displayD_c =         0x35;
+ 166      =1  unsigned char code displayD_b =         0xEC;
+ 167      =1  unsigned char code displayE_c =         0xCD;
+ 168      =1  unsigned char code displayE_b =         0xBC;
+ 169      =1  unsigned char code displayF_c =         0x1D;
+ 170      =1  unsigned char code displayF_b =         0xBF;
+ 171      =1  unsigned char code displayG_c =         0x1F;
+ 172      =1  unsigned char code displayG_b =         0x38;
+ 173      =1  unsigned char code displayH_c =         0xDC;
+ 174      =1  unsigned char code displayH_b =         0x3B;
+ 175      =1  unsigned char code displayI_c =         0x2F;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 4   
+
+ 176      =1  unsigned char code displayI_b =         0xEC;
+ 177      =1  unsigned char code displayJ_c =         0x3D;
+ 178      =1  unsigned char code displayJ_b =         0xB8;
+ 179      =1  unsigned char code displayK_c =         0xDA;
+ 180      =1  unsigned char code displayK_b =         0xB8;
+ 181      =1  unsigned char code displayL_c =         0xDF;
+ 182      =1  unsigned char code displayL_b =         0xBC;
+ 183      =1  unsigned char code displayM_c =         0xC9;
+ 184      =1  unsigned char code displayM_b =         0xBB;
+ 185      =1  unsigned char code displayN_c =         0xCD;
+ 186      =1  unsigned char code displayN_b =         0xB3;
+ 187      =1  unsigned char code displayO_c =         0x1D;
+ 188      =1  unsigned char code displayO_b =         0xB8;
+ 189      =1  unsigned char code displayP_c =         0x1C;
+ 190      =1  unsigned char code displayP_b =         0x3F;
+ 191      =1  unsigned char code displayQ_c =         0x1D;
+ 192      =1  unsigned char code displayQ_b =         0xB0;
+ 193      =1  unsigned char code displayR_c =         0x56;
+ 194      =1  unsigned char code displayR_b =         0xB7;
+ 195      =1  unsigned char code displayS_c =         0x1E;
+ 196      =1  unsigned char code displayS_b =         0x78;
+ 197      =1  unsigned char code displayT_c =         0x37;
+ 198      =1  unsigned char code displayT_b =         0xEF;
+ 199      =1  unsigned char code displayU_c =         0xDD;
+ 200      =1  unsigned char code displayU_b =         0xB8;
+ 201      =1  unsigned char code displayV_c =         0xDB;
+ 202      =1  unsigned char code displayV_b =         0x9F;
+ 203      =1  unsigned char code displayW_c =         0xDD;
+ 204      =1  unsigned char code displayW_b =         0x93;
+ 205      =1  unsigned char code displayX_c =         0xEB;
+ 206      =1  unsigned char code displayX_b =         0xB7;
+ 207      =1  unsigned char code displayY_c =         0xEB;
+ 208      =1  unsigned char code displayY_b =         0xEF;
+ 209      =1  unsigned char code displayZ_c =         0x3B;
+ 210      =1  unsigned char code displayZ_b =         0xDC;
+ 211      =1  unsigned char code displayMul_c =       0xE2;   
+ 212      =1  unsigned char code displayMul_b =       0x47;
+ 213      =1  
+ 214      =1  #endif
+   3          
+   4          /*==========================================================================
+   5                                                          VARIABLES
+   6          ===========================================================================*/
+   7          
+   8                                  /* INTERFACES */
+   9          /*keyboard*/
+  10          unsigned char xdata key_portA _at_ 0x8000;
+  11          unsigned char xdata key_portB _at_ 0x8001;
+  12          unsigned char xdata key_portC _at_ 0x8002;
+  13          unsigned char xdata key_contr _at_ 0x8003;      
+  14          /*display*/
+  15          unsigned char xdata display_portA _at_ 0x8004;
+  16          unsigned char xdata display_portB _at_ 0x8005;
+  17          unsigned char xdata display_portC _at_ 0x8006;
+  18          unsigned char xdata display_contr _at_ 0x8007;
+  19          
+  20                                  /* DATA */
+  21          /*database*/
+  22          unsigned char xdata product_database[16001]; /* 1 for escape*/
+  23          unsigned char* data cur_database_ptr;
+  24          /*init protocol*/
+  25          unsigned char data data_count;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 5   
+
+  26          unsigned char data time_count;
+  27          unsigned char data protocol_phase = 0;
+  28          unsigned char data recData;
+  29          bit bdata programming = 0;
+  30          unsigned char xdata prog_time = 0;
+  31          /* display */
+  32          unsigned char xdata display_buffer[34];
+  33          unsigned char* data cur_buffer_ptr=0;
+  34          unsigned char xdata wait_str[17] =                      "   WAITING       ";
+  35          unsigned char xdata programming_str[17] =       "   PROGRAMMING   ";
+  36          unsigned char xdata sys_err_str[17] =           "ERROR NEED RESET ";
+  37          unsigned char xdata err_str[17] =                       "     ERROR       ";
+  38          unsigned char xdata sys_amount_str[17] =        " AMOUNT          ";
+  39          unsigned char xdata sys_total_str[17] =         " TOTAL           ";
+  40          /* printer */
+  41          bit bdata have_paper=1;
+  42          unsigned char* data print_ptr;
+  43          unsigned int data numChar_to_print=0;
+  44          bit bdata isPrinting=0;
+  45          /* keyboard */
+  46          bit bdata isAmount=0;
+  47          bit bdata isFunction=0;
+  48          unsigned int data cur_amount=1;
+  49          unsigned int data cur_product_id=0;
+  50          unsigned char* xdata cur_product_offset;
+  51          unsigned int data cur_product_price=0;
+  52          unsigned int data cur_sum=0;
+  53          unsigned char xdata data_str[17]; 
+  54          unsigned char xdata amount_str[17];
+  55          /* sys lock     */
+  56          bit bdata error=0;
+  57          bit bdata lock_sys=0;
+  58          bit bdata isReady=0;
+  59          /* function     */
+  60          bit bdata serialF0=0;
+  61          /* counter */
+  62          char data counter_mode=0;
+  63           /* printing_ptr dw 0 */
+  64          unsigned char data lad_cnt=     0x96; /*150x2mS*/
+  65          unsigned char data char_cnt=    0x0A; /*10x2mS*/
+  66          unsigned char data cr_cnt=              0x64; /*100x2mS*/
+  67          bit bdata isLad=0;
+  68          bit bdata isChar=0;
+  69          bit bdata isCr=0;
+  70          /* time */
+  71          unsigned char data hours=0;
+  72          unsigned char data minutes=0;
+  73          unsigned char data seconds=0;
+  74          unsigned char xdata time_str[17]="     :    :      ";
+  75          unsigned int data clkSec= 0x0FA0 ;   /*4000*/
+  76          unsigned char data clkDisplay= 0xA0; /*160*/
+  77          bit bdata show_clock=0;
+  78          /* bill */ 
+  79          unsigned char xdata current_bill[512];
+  80          unsigned char* data cur_bill_ptr;
+  81          bit bdata sending_bill=0;
+  82          unsigned char* data cur_item_to_send;
+  83          unsigned char data bill_price=0;
+  84          /* daily sales */
+  85          unsigned int data total=0;
+  86          unsigned char xdata sales_data[14000];
+  87          unsigned char* data cur_sales_ptr;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 6   
+
+  88          /*stack*/
+  89          unsigned char xdata stackStart;
+  90          /*utiliti*/
+  91          unsigned int data i;
+  92          unsigned int data j;
+  93          /*keyboard*/
+  94          unsigned char code keys[16]={7,8,9,'F',4,5,6,'C',1,2,3,'+','*',0,'#','='};         /*isp*/
+  95          unsigned char code scan[4]={0x0E,0x0D,0x0B,0x07};
+  96          
+  97          /*==========================================================================
+  98                                                          UTILITI FUNCTIONS
+  99                                          (reentrant-not for recursion just
+ 100                                           for multiple calls when function works 
+ 101                                           with global data)
+ 102          ===========================================================================*/ 
+ 103          
+ 104          /*--------------------------------------------------------
+ 105                          from src string to display buffer 
+ 106          --------------------------------------------------------*/
+ 107           void fill_display_buf(char* src) reentrant{ 
+ 108   1              unsigned char* data display_ptr;
+ 109   1              unsigned char data dif;
+ 110   1              cur_buffer_ptr=&display_buffer[0];
+ 111   1              for(i=0;i<17;i++){
+ 112   2                      /*      number or : */
+ 113   2                      if(src[i]>=0x30 && src[i]<=0x3A){
+ 114   3                              display_ptr=&display0_c;
+ 115   3                               dif=src[i]-'0';
+ 116   3                              *cur_buffer_ptr=*(dif+display_ptr);
+ 117   3                              cur_buffer_ptr++;
+ 118   3                              *cur_buffer_ptr=*(display_ptr+dif+1);
+ 119   3                              cur_buffer_ptr++;
+ 120   3                              break;
+ 121   3                      }
+ 122   2                      /* letter */
+ 123   2                      if(src[i]>=0x41 && src[i]<=0x5A){ 
+ 124   3                              display_ptr=&displayA_c;
+ 125   3                               dif=src[i]-'A';
+ 126   3                              *cur_buffer_ptr=*(dif+display_ptr);
+ 127   3                              cur_buffer_ptr++;
+ 128   3                              *cur_buffer_ptr=*(display_ptr+dif+1);
+ 129   3                              cur_buffer_ptr++;
+ 130   3                              break;
+ 131   3                      }
+ 132   2                      if(src[i]=='*'){ 
+ 133   3                              *cur_buffer_ptr=displayMul_c;
+ 134   3                              cur_buffer_ptr++;
+ 135   3                              *cur_buffer_ptr=displayMul_b;
+ 136   3                              cur_buffer_ptr++;
+ 137   3                              break;
+ 138   3                      }
+ 139   2                      if(src[i]==' '){ 
+ 140   3                              *cur_buffer_ptr=display_null;
+ 141   3                              cur_buffer_ptr++;
+ 142   3                              *cur_buffer_ptr=display_null;
+ 143   3                              cur_buffer_ptr++;
+ 144   3                              break;
+ 145   3                      }
+ 146   2              }
+ 147   1        }
+ 148          
+ 149          /*-----------------------------------------------------
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 7   
+
+ 150                   refresh display to show new value
+ 151                  from display_buffer
+ 152                  -in code function have protection from
+ 153                   multiple calls. 
+ 154          ------------------------------------------------------*/
+ 155          void display_refresh() reentrant{ 
+ 156   1      unsigned char* data seg_ptr=&select_seg0;
+ 157   1      cur_buffer_ptr=&display_buffer[0];
+ 158   1       for(i=0;i<17;i++){   
+ 159   2        display_portA=*seg_ptr;
+ 160   2        display_portC=*cur_buffer_ptr;
+ 161   2        cur_buffer_ptr++;
+ 162   2        display_portB=*cur_buffer_ptr;
+ 163   2        seg_ptr++;
+ 164   2        cur_buffer_ptr++;
+ 165   2       }
+ 166   1      }
+ 167          
+ 168          /*---------------------------------------------------
+ 169                                          int to string
+ 170          -----------------------------------------------------*/
+ 171          void value_to_string(unsigned value,char* destination)reentrant{
+ 172   1              unsigned int data val=value;
+ 173   1              char* data dst=destination;
+ 174   1              for(i=0;i<5;i++){
+ 175   2                      *dst=(val%10)-'0';
+ 176   2                      val=val/10;
+ 177   2                      dst--;
+ 178   2                      if(val==0) break;
+ 179   2              }
+ 180   1              while(i<5){
+ 181   2                      *dst=' ';
+ 182   2                      i++;
+ 183   2                      dst--;
+ 184   2              }
+ 185   1       }
+ 186          
+ 187          /*-----------------------------------------------------
+ 188                                     time to string
+ 189                    "  h1h0 : m1mo : s1s0   "                    
+ 190          ------------------------------------------------------*/
+ 191          void time_to_string(){
+ 192   1                time_str[2]=hours/10;
+ 193   1                time_str[3]=hours%10;
+ 194   1                time_str[7]=minutes/10;
+ 195   1                time_str[8]=minutes%10;
+ 196   1                time_str[12]=seconds/10;
+ 197   1                time_str[13]=seconds%10;
+ 198   1      }
+ 199          
+ 200          /*-----------------------------------------------------
+ 201                                     setup sales data            
+ 202          ------------------------------------------------------*/
+ 203          
+ 204          void setup_sales_data(){
+ 205   1        unsigned* data num=&product_database[14];
+ 206   1        cur_database_ptr=&product_database[0];
+ 207   1        cur_sales_ptr =&sales_data[0];
+ 208   1        for(i=0;i<1000;i++){
+ 209   2              if(*num>0){
+ 210   3              for(j=0;j<12;j++){
+ 211   4                 *cur_sales_ptr=cur_database_ptr[j];
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 8   
+
+ 212   4                 cur_sales_ptr++;
+ 213   4              }
+ 214   3               cur_sales_ptr+=5;
+ 215   3               value_to_string(*num,cur_sales_ptr);
+ 216   3               cur_sales_ptr++;*cur_sales_ptr=0x0A;
+ 217   3               cur_sales_ptr++;*cur_sales_ptr=0x0D;
+ 218   3               *num=0;
+ 219   3              }
+ 220   2              cur_sales_ptr++;
+ 221   2              num+=16;
+ 222   2              cur_database_ptr+=16;
+ 223   2                                
+ 224   2        }
+ 225   1      }
+ 226           
+ 227           /*-----------------------------------------------------
+ 228                                     copy string         
+ 229          ------------------------------------------------------*/
+ 230          void copy_string (unsigned length,char* dst,char* src)reentrant{
+ 231   1              for(i=0;i<length;i++)
+ 232   1               *(dst+i)=*(src+i);
+ 233   1      }
+ 234          
+ 235          
+ 236          /*==========================================================================
+ 237                                                          INTERRUPTS
+ 238          ===========================================================================*/
+ 239          /*--------------------------------------------------------
+ 240                                          KEYBOARD 
+ 241          --------------------------------------------------------*/
+ 242          void keyboard() interrupt 0 using 0{
+ 243   1              unsigned char data key=0;
+ 244   1              unsigned char data i; 
+ 245   1              unsigned char data temp;
+ 246   1      
+ 247   1                      /*scan keyboard*/
+ 248   1               for(i=0;i<16;i++){
+ 249   2                      key_portA=scan[i%4];
+ 250   2                      temp=key_portB&scan[i%4];
+ 251   2                      if(!temp){
+ 252   3                              key=keys[i];
+ 253   3                              break;
+ 254   3                      }
+ 255   2              }
+ 256   1              if(!key) goto keyEnd;
+ 257   1              switch(key){
+ 258   2              /*number*/
+ 259   2              case 1: case 2: case 3: case 4: case 5: case 6:
+ 260   2              case 7: case 8: case 9: 
+ 261   2                      if(error) goto keyEnd;
+ 262   2                      if(!isFunction && !isAmount){
+ 263   3                         cur_product_id=cur_product_id*10+key;
+ 264   3                         cur_product_offset=(char*)&product_database[0]+cur_product_id*16;
+ 265   3                         show_clock=0;
+ 266   3                         copy_string(12,data_str,cur_product_offset);
+ 267   3                         cur_product_price=*(cur_product_offset+12);
+ 268   3                         value_to_string(cur_product_price,data_str+16);
+ 269   3                         fill_display_buf(data_str);
+ 270   3                      }else if(!isFunction){
+ 271   3                         cur_amount=cur_amount*10+key;
+ 272   3                         show_clock=0;
+ 273   3                         value_to_string(cur_amount,amount_str+5);
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 9   
+
+ 274   3                         value_to_string(cur_amount*cur_product_price,amount_str+16);
+ 275   3                         fill_display_buf(amount_str);
+ 276   3                      }else if(isFunction){
+ 277   3                        switch(key){
+ 278   4                        case 0:
+ 279   4                                      setup_sales_data();
+ 280   4                                      numChar_to_print=16000;
+ 281   4                                      UNLOCK_SERIAL
+ 282   4                                      LOCK_KEYBOARD
+ 283   4                                      show_clock=1;
+ 284   4                                      break;
+ 285   4                        case 1:
+ 286   4                                      setup_sales_data();
+ 287   4                                      print_ptr=sales_data;
+ 288   4                                      numChar_to_print=16000;
+ 289   4                                      /*start counter, mask keyboard*/
+ 290   4                                      START_T0
+ 291   4                                      LOCK_KEYBOARD
+ 292   4                                      show_clock=1;
+ 293   4                                      break;
+ 294   4                        case 2:
+ 295   4                                      /*display total*/
+ 296   4                                      value_to_string(total,sys_total_str+16);
+ 297   4                                      fill_display_buf(sys_total_str);
+ 298   4                                      break;
+ 299   4                        case 3:
+ 300   4                                      /*open lad*/
+ 301   4                                      isLad=1;
+ 302   4                                      START_T0
+ 303   4                                      START_LAD
+ 304   4                                      break;
+ 305   4                              }
+ 306   3                      }
+ 307   2                      break;
+ 308   2         case '+':
+ 309   2                      if(!error) goto keyEnd;
+ 310   2                      copy_string(12,cur_bill_ptr,cur_product_offset);
+ 311   2                      cur_bill_ptr+=12;
+ 312   2                      cur_sum=cur_product_price*cur_amount;
+ 313   2                      bill_price+=cur_sum;
+ 314   2                  total+=cur_sum;
+ 315   2                      value_to_string(cur_sum,cur_bill_ptr);
+ 316   2                      cur_bill_ptr+=5;
+ 317   2                      *cur_bill_ptr=0x0D;
+ 318   2                      cur_bill_ptr++;
+ 319   2                      *cur_bill_ptr=0x0A;
+ 320   2                      *(cur_product_offset+14)+=cur_amount;
+ 321   2                      cur_amount=0;
+ 322   2                      cur_product_id=0;
+ 323   2                      cur_product_offset=0;
+ 324   2                      cur_product_price=0;
+ 325   2                      value_to_string(bill_price,sys_amount_str+16);
+ 326   2                      fill_display_buf(sys_amount_str);
+ 327   2                      numChar_to_print+=0x13;
+ 328   2                      if(!isPrinting){
+ 329   3                              print_ptr=current_bill;
+ 330   3                              counter_mode=1;
+ 331   3                          STOP_T0
+ 332   3      
+ 333   3                      }
+ 334   2                      break;
+ 335   2         case '-':
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 10  
+
+ 336   2                      if(!error) goto keyEnd;
+ 337   2                      *cur_bill_ptr='-';
+ 338   2                      cur_bill_ptr++;
+ 339   2                      copy_string(12,cur_bill_ptr,cur_product_offset);
+ 340   2                      cur_bill_ptr+=12;
+ 341   2                      cur_sum=cur_product_price*cur_amount;
+ 342   2                      bill_price-=cur_sum;
+ 343   2                  total-=cur_sum;
+ 344   2                      value_to_string(cur_sum,cur_bill_ptr);
+ 345   2                      cur_bill_ptr+=5;
+ 346   2                      *cur_bill_ptr=0x0D;
+ 347   2                      cur_bill_ptr++;
+ 348   2                      *cur_bill_ptr=0x0A;
+ 349   2                      *(cur_product_offset+14)-=cur_amount;
+ 350   2                      cur_amount=0;
+ 351   2                      cur_product_id=0;
+ 352   2                      cur_product_offset=0;
+ 353   2                      cur_product_price=0;
+ 354   2                      value_to_string(bill_price,sys_amount_str+16);
+ 355   2                      fill_display_buf(sys_amount_str);
+ 356   2                      numChar_to_print+=0x13;
+ 357   2                      if(!isPrinting){
+ 358   3                              isPrinting=1;
+ 359   3                              print_ptr=current_bill;
+ 360   3                              counter_mode=1;
+ 361   3                          STOP_T0
+ 362   3                      }
+ 363   2                      break;
+ 364   2              case '=':
+ 365   2                      if(error) goto keyEnd;
+ 366   2                      for(i=0;i<10;i++){
+ 367   3                      *cur_bill_ptr='=';
+ 368   3                      cur_bill_ptr++;
+ 369   3                      }
+ 370   2                      *cur_bill_ptr=0x0D;
+ 371   2                      cur_bill_ptr++;
+ 372   2                      *cur_bill_ptr=0x0A;
+ 373   2                      value_to_string(bill_price,cur_bill_ptr);
+ 374   2                      *(cur_bill_ptr+5)=0x1B;
+ 375   2                      cur_bill_ptr=0;
+ 376   2                      bill_price=0;
+ 377   2                      isReady=1;
+ 378   2                      show_clock=1;
+ 379   2                      /*open lad */
+ 380   2                      isLad=1;
+ 381   2                      key_portC|=0x01;
+ 382   2                      numChar_to_print+=0x11;
+ 383   2                      if(!isPrinting){
+ 384   3                              isPrinting=1;
+ 385   3                              STOP_T0
+ 386   3                      }
+ 387   2                      break;
+ 388   2              case 'F':
+ 389   2                      if(error) goto keyEnd;
+ 390   2                      if(!isReady) goto errorLab;
+ 391   2                      isFunction=1;
+ 392   2                      break;
+ 393   2              case 'C':
+ 394   2                      isFunction=0;
+ 395   2                      cur_product_id=0;
+ 396   2                      cur_amount=1;
+ 397   2                      isAmount=0;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 11  
+
+ 398   2                      show_clock=1;
+ 399   2                      break;
+ 400   2              case '*':
+ 401   2                      if(error) goto keyEnd;
+ 402   2                      isAmount=1;
+ 403   2                      break;
+ 404   2      
+ 405   2         }
+ 406   1         goto keyEnd;
+ 407   1      errorLab:
+ 408   1              error=1;
+ 409   1              fill_display_buf(err_str);
+ 410   1      keyEnd:
+ 411   1              key_portA=0;            
+ 412   1      }      
+ 413          
+ 414           
+ 415          /*--------------------------------------------------------
+ 416                                          TIME 
+ 417          --------------------------------------------------------*/
+ 418          void time() interrupt 1 using 1{
+ 419   1              /*if 1s -> setup time*/
+ 420   1              if(!(--clkSec)){
+ 421   2                      clkSec=0x0FA0;
+ 422   2                      if(++seconds==60){
+ 423   3                              seconds=0;
+ 424   3                              if(++minutes==60){
+ 425   4                                      minutes=0;
+ 426   4                                      if(++hours==24){
+ 427   5                                              hours=0;
+ 428   5                                      }
+ 429   4                              }
+ 430   3                      }
+ 431   2                      if(show_clock){
+ 432   3                              time_to_string();
+ 433   3                              fill_display_buf(time_str);
+ 434   3                      }
+ 435   2              }
+ 436   1              /*if 40ms -> show display*/
+ 437   1              if(!(--clkDisplay)){
+ 438   2                      clkDisplay=0x0A0;
+ 439   2                      display_refresh();
+ 440   2              }
+ 441   1      }
+ 442          
+ 443          
+ 444          /*--------------------------------------------------------
+ 445                                          PRINT 
+ 446          --------------------------------------------------------*/
+ 447          void print() interrupt 2 {
+ 448   1       have_paper=0;
+ 449   1      }
+ 450          
+ 451          
+ 452          /*--------------------------------------------------------
+ 453                                          COUNTER 
+ 454          --------------------------------------------------------*/
+ 455          void counter() interrupt 3 using 2{
+ 456   1      
+ 457   1        /*reload*/
+ 458   1        TH0=0x07;     
+ 459   1        TL0=0x0D;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 12  
+
+ 460   1        /*setup lad*/
+ 461   1        if(isLad){
+ 462   2              if(--lad_cnt){
+ 463   3                      lad_cnt=0x96;
+ 464   3                      UNLOCK_KEYBOARD
+ 465   3                      if(!isPrinting){
+ 466   4                              STOP_T0
+ 467   4                      } 
+ 468   3                      STOP_LAD
+ 469   3              }
+ 470   2        }
+ 471   1        /*printer*/
+ 472   1        if(have_paper){
+ 473   2        switch(counter_mode){
+ 474   3        case 1:
+ 475   3              /*start print*/
+ 476   3          P1=*print_ptr;
+ 477   3              print_ptr++;
+ 478   3              START_PRINT
+ 479   3              counter_mode=2;
+ 480   3              break;
+ 481   3        case 2:
+ 482   3              /*stop print and setup
+ 483   3                      wait interval*/
+ 484   3              STOP_PRINT
+ 485   3              if(*print_ptr==0x0D){
+ 486   4                      isCr=1;
+ 487   4              }else{
+ 488   4                      isChar=1;
+ 489   4              }
+ 490   3              print_ptr--;
+ 491   3              counter_mode=3;
+ 492   3              break;
+ 493   3        case 3:
+ 494   3              /*wait*/
+ 495   3              if(isCr){
+ 496   4                      if(!--cr_cnt){
+ 497   5                         cr_cnt=0x64;
+ 498   5                              if(*print_ptr!=0x1B)
+ 499   5                                      numChar_to_print--;
+ 500   5                              if(*print_ptr==0x1B || !numChar_to_print){
+ 501   6                                      print_ptr=current_bill;
+ 502   6                                      counter_mode=0;
+ 503   6                                      isPrinting=0;
+ 504   6                                      if(!isLad) STOP_T0;
+ 505   6                              }else{
+ 506   6                                      counter_mode=1;
+ 507   6                              }       
+ 508   5                      }
+ 509   4              }
+ 510   3              if(isChar){
+ 511   4                      if(!--char_cnt){
+ 512   5                         char_cnt=0x0A;
+ 513   5                         if(*print_ptr!=0x1B)
+ 514   5                                      numChar_to_print--;
+ 515   5                              if(*print_ptr==0x1B || !numChar_to_print){
+ 516   6                                      print_ptr=current_bill;
+ 517   6                                      counter_mode=0;
+ 518   6                                      isPrinting=0;
+ 519   6                                      if(!isLad) STOP_T0;
+ 520   6                              }else{
+ 521   6                                      counter_mode=1;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 13  
+
+ 522   6                              }
+ 523   5                      }
+ 524   4              }
+ 525   3              break;
+ 526   3        }
+ 527   2       }
+ 528   1      }
+ 529          
+ 530          
+ 531          /*--------------------------------------------------------
+ 532                                          SERIAL 
+ 533          --------------------------------------------------------*/
+ 534          void serial()interrupt 4 using 3{
+ 535   1              
+ 536   1         if(serialF0){
+ 537   2                      if(*cur_item_to_send!=0x1B){
+ 538   3                              SBUF=*cur_item_to_send;
+ 539   3                              cur_item_to_send++;
+ 540   3                              RESET_STF
+ 541   3                      }else{
+ 542   3                              LOCK_SERIAL
+ 543   3                              RESET_STF
+ 544   3                              UNLOCK_KEYBOARD
+ 545   3                      }
+ 546   2         }else{
+ 547   2              switch(protocol_phase){
+ 548   3              case 0:
+ 549   3                      /*start database init protocol
+ 550   3                              transmit to PC SYN character*/
+ 551   3                      SBUF=0x16;
+ 552   3                      protocol_phase++;
+ 553   3                      RESET_STF;
+ 554   3                      break;
+ 555   3              case 1:
+ 556   3                      START_RECEIVE
+ 557   3                      protocol_phase++;
+ 558   3                      RESET_STF;
+ 559   3                      break;
+ 560   3              case 2:
+ 561   3                      /*Receive SYN*/
+ 562   3                      recData=SBUF;
+ 563   3                      if(recData!=0x16){
+ 564   4                       fill_display_buf(sys_err_str);
+ 565   4                       display_refresh();
+ 566   4                       lock_sys=1;
+ 567   4                       break;
+ 568   4                      }
+ 569   3                      fill_display_buf(programming_str);
+ 570   3                      protocol_phase++;
+ 571   3                      RESET_SRF;
+ 572   3                      break;
+ 573   3              case 3:
+ 574   3                      /*programming*/
+ 575   3                      recData=SBUF;
+ 576   3                      if(prog_time){
+ 577   4                              switch(time_count){
+ 578   5                              case 0:
+ 579   5                                      hours=recData;
+ 580   5                                      time_count++;
+ 581   5                                      break;
+ 582   5                              case 1:
+ 583   5                                      minutes=recData;
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 14  
+
+ 584   5                                      time_count++;
+ 585   5                                      break;
+ 586   5                              case 2:
+ 587   5                                      seconds=recData;
+ 588   5                                      time_count++;
+ 589   5                                      STOP_RECEIVE
+ 590   5                                      LOCK_SERIAL
+ 591   5                                      cur_database_ptr=0;
+ 592   5                                      break;
+ 593   5                              }               
+ 594   4                      }else if(recData==0x1B){
+ 595   4                                      if(!data_count){
+ 596   5                                      fill_display_buf(sys_err_str);
+ 597   5                                      display_refresh();
+ 598   5                                      lock_sys=1;
+ 599   5                                      break;
+ 600   5                               }
+ 601   4                               prog_time=1;
+ 602   4                      }else if(data_count<=11){
+ 603   4                              *cur_database_ptr=recData;
+ 604   4                              cur_database_ptr++;
+ 605   4                              data_count++;
+ 606   4                      }else if(data_count<=13){
+ 607   4                              *cur_database_ptr=recData;
+ 608   4                              if(data_count==13){
+ 609   5                                      data_count=0;
+ 610   5                                      *cur_database_ptr=0;
+ 611   5                                      cur_database_ptr++;
+ 612   5                                      *cur_database_ptr=0;
+ 613   5                                      cur_database_ptr++;
+ 614   5                              }else
+ 615   4                              cur_database_ptr++;
+ 616   4                      }
+ 617   3                      RESET_SRF;
+ 618   3                      break;
+ 619   3              }
+ 620   2              }
+ 621   1      }
+ 622          
+ 623          
+ 624          /*==========================================================================
+ 625                                                          INIT
+ 626          ===========================================================================*/ 
+ 627          void init (){
+ 628   1              
+ 629   1               /* init 8051 */
+ 630   1               SP=0x30;
+ 631   1               /*timers*/
+ 632   1               TMOD=0x22; /*[g:0,c:0,M:1,0|g:0,c:0,M:0,1]*/
+ 633   1               TH1=0xFA;      /*250=>250uS*/
+ 634   1               TH0=0x07;      /*2000=>2mS*/
+ 635   1               TL0=0x0D;
+ 636   1               TCON=0x45; /* [t1:0,1|t2:0,0|0,1,0,1]*/
+ 637   1               /*serial*/
+ 638   1               PCON=0x00;
+ 639   1               SCON=0x80;
+ 640   1                                              
+ 641   1              /* init pointers */     
+ 642   1              product_database[16000]=0x1B; /*escape*/
+ 643   1              cur_database_ptr=&product_database[0];
+ 644   1              cur_buffer_ptr=&display_buffer[0];
+ 645   1              cur_bill_ptr=&current_bill[0];
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 15  
+
+ 646   1              cur_sales_ptr=&sales_data[14000];
+ 647   1      
+ 648   1               /*interrupt*/
+ 649   1               IP=0x0A;  /*timer and counter has priority=1*/
+ 650   1               IE=0x9F;  /*unlock all interrupts*/
+ 651   1      }
+ 652          
+ 653          /*==========================================================================
+ 654                                                          MAIN
+ 655          ===========================================================================*/
+ 656          void main(){
+ 657   1              init();
+ 658   1              while(1){
+ 659   2                      if(lock_sys) IE=0x00;
+ 660   2              }
+ 661   1      }
+ 662          
+ 663          
+ 664           
+ 665          
+ 666          
+ 667          
+ 668          
+ 669          
+ 670          
+ 671          
+ 672          
+ 673          
+ 674          
+ 675          
+ 676          
+ 677          
+ 678          
+ 679          
+ 680          
+ 681          
+ 682          
+ 683          
+ 684          
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 16  
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION Com00A7 (BEGIN)
+0000         L?0168:
+0000 F500        R     MOV     total,A
+0002 AB00        R     MOV     R3,cur_bill_ptr
+0004 AA00        R     MOV     R2,cur_bill_ptr+01H
+0006 A900        R     MOV     R1,cur_bill_ptr+02H
+0008 120000      R     LCALL   _?value_to_string
+000B 7405              MOV     A,#05H
+000D 2500        R     ADD     A,cur_bill_ptr+02H
+000F F500        R     MOV     cur_bill_ptr+02H,A
+0011 E4                CLR     A
+0012 3500        R     ADDC    A,cur_bill_ptr+01H
+0014 F500        R     MOV     cur_bill_ptr+01H,A
+0016 FA                MOV     R2,A
+0017         L?0169:
+0017 AB00        R     MOV     R3,cur_bill_ptr
+0019 740D              MOV     A,#0DH
+001B         L?0170:
+001B A900        R     MOV     R1,cur_bill_ptr+02H
+001D         L?0171:
+001D 120000      E     LCALL   ?C?CSTPTR
+0020 7401              MOV     A,#01H
+0022         L?0172:
+0022 2500        R     ADD     A,cur_bill_ptr+02H
+0024 F500        R     MOV     cur_bill_ptr+02H,A
+0026 E4                CLR     A
+0027 3500        R     ADDC    A,cur_bill_ptr+01H
+0029 F500        R     MOV     cur_bill_ptr+01H,A
+002B 22                RET     
+002C         L?0173:
+002C E4                CLR     A
+002D 93                MOVC    A,@A+DPTR
+002E         L?0174:
+002E AB00        R     MOV     R3,cur_buffer_ptr
+0030 AA00        R     MOV     R2,cur_buffer_ptr+01H
+0032 A900        R     MOV     R1,cur_buffer_ptr+02H
+0034 120000      E     LCALL   ?C?CSTPTR
+0037         L?0175:
+0037 7401              MOV     A,#01H
+0039 2500        R     ADD     A,cur_buffer_ptr+02H
+003B F500        R     MOV     cur_buffer_ptr+02H,A
+003D E4                CLR     A
+003E 3500        R     ADDC    A,cur_buffer_ptr+01H
+0040 F500        R     MOV     cur_buffer_ptr+01H,A
+0042 22                RET     
+0043         L?0176:
+0043 750000      R     MOV     cur_amount,#00H
+0046 750000      R     MOV     cur_amount+01H,#00H
+0049 750000      R     MOV     cur_product_id,#00H
+004C 750000      R     MOV     cur_product_id+01H,#00H
+004F 7B00              MOV     R3,#00H
+0051 7A00              MOV     R2,#00H
+0053 7900              MOV     R1,#00H
+0055 900000      R     MOV     DPTR,#cur_product_offset
+0058 120000      E     LCALL   ?C?PSTXDATA
+005B 750000      R     MOV     cur_product_price,#00H
+005E 750000      R     MOV     cur_product_price+01H,#00H
+0061 0B                INC     R3
+0062 7A00        R     MOV     R2,#HIGH sys_amount_str+010H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 17  
+
+0064 7900        R     MOV     R1,#LOW sys_amount_str+010H
+0066 AF00        R     MOV     R7,bill_price
+0068 7E00              MOV     R6,#00H
+006A 120000      R     LCALL   _?value_to_string
+006D 7B01              MOV     R3,#01H
+006F 7A00        R     MOV     R2,#HIGH sys_amount_str
+0071 7900        R     MOV     R1,#LOW sys_amount_str
+0073 120000      R     LCALL   _?fill_display_buf
+0076 7413              MOV     A,#013H
+0078         L?0177:
+0078 2500        R     ADD     A,numChar_to_print+01H
+007A F500        R     MOV     numChar_to_print+01H,A
+007C E4                CLR     A
+007D 3500        R     ADDC    A,numChar_to_print
+007F F500        R     MOV     numChar_to_print,A
+0081 22                RET     
+0082         L?0178:
+0082         L?0179:
+0082 900000      R     MOV     DPTR,#cur_product_offset
+0085 120000      E     LCALL   ?C?PLDXDATA
+0088         L?0180:
+0088 1500        E     DEC     ?C_IBP
+008A 1500        E     DEC     ?C_IBP
+008C 1500        E     DEC     ?C_IBP
+008E A800        E     MOV     R0,?C_IBP
+0090 020000      E     LJMP    ?C?PSTIDATA
+0093         L?0181:
+0093         L?0182:
+0093 E500        E     MOV     A,?C_IBP
+0095 2404              ADD     A,#04H
+0097         L?0183:
+0097 F8                MOV     R0,A
+0098 120000      E     LCALL   ?C?PLDIDATA
+009B 850082      R     MOV     DPL,i+01H
+009E 850083      R     MOV     DPH,i
+00A1 120000      E     LCALL   ?C?CLDOPTR
+00A4 FF                MOV     R7,A
+00A5 22                RET     
+00A6         L?0184:
+00A6 120000      E     LCALL   ?C?CSTPTR
+00A9         L?0185:
+00A9 7401              MOV     A,#01H
+00AB         L?0186:
+00AB 2500        R     ADD     A,cur_sales_ptr+02H
+00AD F500        R     MOV     cur_sales_ptr+02H,A
+00AF E4                CLR     A
+00B0 3500        R     ADDC    A,cur_sales_ptr+01H
+00B2 F500        R     MOV     cur_sales_ptr+01H,A
+00B4 22                RET     
+00B5         L?0187:
+00B5         L?0188:
+00B5 2500        R     ADD     A,cur_database_ptr+02H
+00B7 F500        R     MOV     cur_database_ptr+02H,A
+00B9 E4                CLR     A
+00BA 3500        R     ADDC    A,cur_database_ptr+01H
+00BC F500        R     MOV     cur_database_ptr+01H,A
+00BE 22                RET     
+00BF         L?0189:
+00BF         L?0190:
+00BF AB00        R     MOV     R3,print_ptr
+00C1 AA00        R     MOV     R2,print_ptr+01H
+00C3 A900        R     MOV     R1,print_ptr+02H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 18  
+
+00C5 020000      E     LJMP    ?C?CLDPTR
+00C8         L?0191:
+00C8 E500        R     MOV     A,recData
+00CA         L?0192:
+00CA AB00        R     MOV     R3,cur_database_ptr
+00CC AA00        R     MOV     R2,cur_database_ptr+01H
+00CE A900        R     MOV     R1,cur_database_ptr+02H
+00D0 020000      E     LJMP    ?C?CSTPTR
+00D3         L?0193:
+00D3 AB00        R     MOV     R3,cur_bill_ptr
+00D5 FA                MOV     R2,A
+00D6 A900        R     MOV     R1,cur_bill_ptr+02H
+00D8 740A              MOV     A,#0AH
+00DA 120000      E     LCALL   ?C?CSTPTR
+00DD         L?0194:
+00DD 900000      R     MOV     DPTR,#cur_product_offset
+00E0 020000      E     LJMP    ?C?PLDXDATA
+00E3         L?0197:
+00E3         L?0198:
+00E3 750001      R     MOV     cur_buffer_ptr,#01H
+00E6 750000      R     MOV     cur_buffer_ptr+01H,#HIGH display_buffer
+00E9 750000      R     MOV     cur_buffer_ptr+02H,#LOW display_buffer
+00EC 22                RET     
+00ED         L?0199:
+00ED 1500        E     DEC     ?C_IBP
+00EF 1500        E     DEC     ?C_IBP
+00F1         L?0200:
+00F1 A800        E     MOV     R0,?C_IBP
+00F3 A606              MOV     @R0,AR6
+00F5 08                INC     R0
+00F6 A607              MOV     @R0,AR7
+00F8 22                RET     
+00F9         L?0201:
+00F9 A800        E     MOV     R0,?C_IBP
+00FB 08                INC     R0
+00FC 08                INC     R0
+00FD 08                INC     R0
+00FE 08                INC     R0
+00FF 74FF              MOV     A,#0FFH
+0101 26                ADD     A,@R0
+0102 F6                MOV     @R0,A
+0103 18                DEC     R0
+0104 74FF              MOV     A,#0FFH
+0106 36                ADDC    A,@R0
+0107 F6                MOV     @R0,A
+0108 22                RET     
+0109         L?0202:
+0109 AC00        R     MOV     R4,cur_amount
+010B AD00        R     MOV     R5,cur_amount+01H
+010D AE00        R     MOV     R6,cur_product_price
+010F AF00        R     MOV     R7,cur_product_price+01H
+0111 120000      E     LCALL   ?C?IMUL
+0114 8E00        R     MOV     cur_sum,R6
+0116 8F00        R     MOV     cur_sum+01H,R7
+0118 22                RET     
+0119         L?0203:
+0119         L?0204:
+0119 750001      R     MOV     print_ptr,#01H
+011C 750000      R     MOV     print_ptr+01H,#HIGH current_bill
+011F 750000      R     MOV     print_ptr+02H,#LOW current_bill
+0122 22                RET     
+0123         L?0205:
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 19  
+
+0123         L?0206:
+0123 75F00A            MOV     B,#0AH
+0126 84                DIV     AB
+0127 A3                INC     DPTR
+0128 E5F0              MOV     A,B
+012A F0                MOVX    @DPTR,A
+012B 22                RET     
+012C         L?0207:
+012C E6                MOV     A,@R0
+012D FE                MOV     R6,A
+012E 08                INC     R0
+012F E6                MOV     A,@R0
+0130 FF                MOV     R7,A
+0131 7C00              MOV     R4,#00H
+0133 7D0A              MOV     R5,#0AH
+0135 020000      E     LJMP    ?C?UIDIV
+0138         L?0208:
+0138 7BFF              MOV     R3,#0FFH
+013A A800        E     MOV     R0,?C_IBP
+013C 020000      E     LJMP    ?C?PSTIDATA
+013F         L?0209:
+013F A800        E     MOV     R0,?C_IBP
+0141 120000      E     LCALL   ?C?PLDIDATA
+0144 E500        E     MOV     A,?C_IBP
+0146 2403              ADD     A,#03H
+0148 F8                MOV     R0,A
+0149 E6                MOV     A,@R0
+014A 22                RET     
+014B         L?0210:
+014B         L?0211:
+014B A800        E     MOV     R0,?C_IBP
+014D 08                INC     R0
+014E 08                INC     R0
+014F 020000      E     LJMP    ?C?PLDIDATA
+0152         L?0212:
+0152 7B01              MOV     R3,#01H
+0154 120000      R     LCALL   _?value_to_string
+0157 7B01              MOV     R3,#01H
+0159 22                RET     
+015A         L?0213:
+015A 7C00              MOV     R4,#00H
+015C 7D0A              MOV     R5,#0AH
+015E 120000      E     LCALL   ?C?IMUL
+0161 EF                MOV     A,R7
+0162 2500        R     ADD     A,key
+0164 22                RET     
+0165         L?0214:
+0165 750001      R     MOV     cur_database_ptr,#01H
+0168 750000      R     MOV     cur_database_ptr+01H,#HIGH product_database
+016B 750000      R     MOV     cur_database_ptr+02H,#LOW product_database
+016E 22                RET     
+016F         L?0215:
+016F         L?0216:
+016F AB00        R     MOV     R3,num
+0171 AA00        R     MOV     R2,num+01H
+0173 A900        R     MOV     R1,num+02H
+0175 22                RET     
+0176         L?0217:
+0176         L?0218:
+0176 AB00        R     MOV     R3,cur_bill_ptr
+0178 AA00        R     MOV     R2,cur_bill_ptr+01H
+017A A900        R     MOV     R1,cur_bill_ptr+02H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 20  
+
+017C 22                RET     
+             ; FUNCTION Com00A7 (END)
+
+             ; FUNCTION _?fill_display_buf (BEGIN)
+                                           ; SOURCE LINE # 107
+0000 120000      R     LCALL   L?0180
+0003 E500        E     MOV     A,?C_IBP
+0005 24FC              ADD     A,#0FCH
+0007 F500        E     MOV     ?C_IBP,A
+                                           ; SOURCE LINE # 110
+0009 120000      R     LCALL   L?0197
+                                           ; SOURCE LINE # 111
+000C E4                CLR     A
+000D F500        R     MOV     i,A
+000F F500        R     MOV     i+01H,A
+0011         ?C0001:
+                                           ; SOURCE LINE # 113
+0011 120000      R     LCALL   L?0181
+0014 C3                CLR     C
+0015 6480              XRL     A,#080H
+0017 94B0              SUBB    A,#0B0H
+0019 4014              JC      ?C0004
+001B D3                SETB    C
+001C EF                MOV     A,R7
+001D 6480              XRL     A,#080H
+001F 94BA              SUBB    A,#0BAH
+0021 500C              JNC     ?C0004
+                                           ; SOURCE LINE # 114
+0023 7A00        R     MOV     R2,#HIGH display0_c
+0025 7900        R     MOV     R1,#LOW display0_c
+0027 120000      R     LCALL   L?0208
+                                           ; SOURCE LINE # 115
+002A EF                MOV     A,R7
+002B 24D0              ADD     A,#0D0H
+                                           ; SOURCE LINE # 116
+                                           ; SOURCE LINE # 117
+                                           ; SOURCE LINE # 118
+                                           ; SOURCE LINE # 119
+                                           ; SOURCE LINE # 120
+002D 801C              SJMP    ?C0153
+                                           ; SOURCE LINE # 121
+002F         ?C0004:
+                                           ; SOURCE LINE # 123
+002F 120000      R     LCALL   L?0181
+0032 C3                CLR     C
+0033 6480              XRL     A,#080H
+0035 94C1              SUBB    A,#0C1H
+0037 403A              JC      ?C0005
+0039 D3                SETB    C
+003A EF                MOV     A,R7
+003B 6480              XRL     A,#080H
+003D 94DA              SUBB    A,#0DAH
+003F 5032              JNC     ?C0005
+                                           ; SOURCE LINE # 124
+0041 7A00        R     MOV     R2,#HIGH displayA_c
+0043 7900        R     MOV     R1,#LOW displayA_c
+0045 120000      R     LCALL   L?0208
+                                           ; SOURCE LINE # 125
+0048 EF                MOV     A,R7
+0049 24BF              ADD     A,#0BFH
+004B         ?C0153:
+004B FF                MOV     R7,A
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 21  
+
+004C E500        E     MOV     A,?C_IBP
+004E 2403              ADD     A,#03H
+0050 F8                MOV     R0,A
+0051 A607              MOV     @R0,AR7
+                                           ; SOURCE LINE # 126
+0053 120000      R     LCALL   L?0209
+0056 F582              MOV     DPL,A
+0058 758300            MOV     DPH,#00H
+005B 120000      E     LCALL   ?C?CLDOPTR
+                                           ; SOURCE LINE # 127
+005E 120000      R     LCALL   L?0174
+                                           ; SOURCE LINE # 128
+0061 120000      R     LCALL   L?0209
+0064 7E00              MOV     R6,#00H
+0066 29                ADD     A,R1
+0067 F9                MOV     R1,A
+0068 EE                MOV     A,R6
+0069 3A                ADDC    A,R2
+006A FA                MOV     R2,A
+006B 900001            MOV     DPTR,#01H
+006E 120000      E     LCALL   ?C?CLDOPTR
+                                           ; SOURCE LINE # 129
+                                           ; SOURCE LINE # 130
+0071 8022              SJMP    ?C0155
+                                           ; SOURCE LINE # 131
+0073         ?C0005:
+                                           ; SOURCE LINE # 132
+0073 120000      R     LCALL   L?0182
+0076 B42A0D            CJNE    A,#02AH,?C0006
+                                           ; SOURCE LINE # 133
+0079 900000      R     MOV     DPTR,#displayMul_c
+                                           ; SOURCE LINE # 134
+007C 120000      R     LCALL   L?0173
+                                           ; SOURCE LINE # 135
+007F 900000      R     MOV     DPTR,#displayMul_b
+0082 E4                CLR     A
+0083 93                MOVC    A,@A+DPTR
+0084         ?C0154:
+                                           ; SOURCE LINE # 136
+                                           ; SOURCE LINE # 137
+0084 800F              SJMP    ?C0155
+                                           ; SOURCE LINE # 138
+0086         ?C0006:
+                                           ; SOURCE LINE # 139
+0086 EF                MOV     A,R7
+0087 B42010            CJNE    A,#020H,?C0003
+                                           ; SOURCE LINE # 140
+008A 900000      R     MOV     DPTR,#display_null
+                                           ; SOURCE LINE # 141
+008D 120000      R     LCALL   L?0173
+                                           ; SOURCE LINE # 142
+0090 900000      R     MOV     DPTR,#display_null
+0093 E4                CLR     A
+0094 93                MOVC    A,@A+DPTR
+0095         ?C0155:
+                                           ; SOURCE LINE # 143
+0095 120000      R     LCALL   L?0174
+                                           ; SOURCE LINE # 144
+0098 8011              SJMP    ?C0008
+                                           ; SOURCE LINE # 145
+                                           ; SOURCE LINE # 146
+009A         ?C0003:
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 22  
+
+009A 0500        R     INC     i+01H
+009C E500        R     MOV     A,i+01H
+009E 7002              JNZ     ?C0143
+00A0 0500        R     INC     i
+00A2         ?C0143:
+00A2 6411              XRL     A,#011H
+00A4 4500        R     ORL     A,i
+00A6 6003              JZ      $ + 5H
+00A8 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 147
+00AB         ?C0008:
+00AB E500        E     MOV     A,?C_IBP
+00AD 2407              ADD     A,#07H
+00AF F500        E     MOV     ?C_IBP,A
+00B1 22                RET     
+             ; FUNCTION _?fill_display_buf (END)
+
+             ; FUNCTION _?display_refresh (BEGIN)
+                                           ; SOURCE LINE # 155
+0000 1500        E     DEC     ?C_IBP
+0002 1500        E     DEC     ?C_IBP
+0004 1500        E     DEC     ?C_IBP
+                                           ; SOURCE LINE # 156
+0006 7BFF              MOV     R3,#0FFH
+0008 7A00        R     MOV     R2,#HIGH select_seg0
+000A 7900        R     MOV     R1,#LOW select_seg0
+000C A800        E     MOV     R0,?C_IBP
+000E 120000      E     LCALL   ?C?PSTIDATA
+                                           ; SOURCE LINE # 157
+0011 120000      R     LCALL   L?0197
+                                           ; SOURCE LINE # 158
+0014 E4                CLR     A
+0015 F500        R     MOV     i,A
+0017 F500        R     MOV     i+01H,A
+0019         ?C0009:
+                                           ; SOURCE LINE # 159
+0019 A800        E     MOV     R0,?C_IBP
+001B 120000      E     LCALL   ?C?PLDIDATA
+001E 120000      E     LCALL   ?C?CLDPTR
+0021 908004            MOV     DPTR,#display_portA
+0024 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 160
+0025 AB00        R     MOV     R3,cur_buffer_ptr
+0027 AA00        R     MOV     R2,cur_buffer_ptr+01H
+0029 A900        R     MOV     R1,cur_buffer_ptr+02H
+002B 120000      E     LCALL   ?C?CLDPTR
+002E 908006            MOV     DPTR,#display_portC
+0031 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 161
+0032 120000      R     LCALL   L?0175
+                                           ; SOURCE LINE # 162
+0035 FA                MOV     R2,A
+0036 A900        R     MOV     R1,cur_buffer_ptr+02H
+0038 120000      E     LCALL   ?C?CLDPTR
+003B 908005            MOV     DPTR,#display_portB
+003E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 163
+003F A800        E     MOV     R0,?C_IBP
+0041 08                INC     R0
+0042 08                INC     R0
+0043 7401              MOV     A,#01H
+0045 26                ADD     A,@R0
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 23  
+
+0046 F6                MOV     @R0,A
+0047 18                DEC     R0
+0048 E4                CLR     A
+0049 36                ADDC    A,@R0
+004A F6                MOV     @R0,A
+                                           ; SOURCE LINE # 164
+004B 120000      R     LCALL   L?0175
+                                           ; SOURCE LINE # 165
+004E 0500        R     INC     i+01H
+0050 E500        R     MOV     A,i+01H
+0052 7002              JNZ     ?C0144
+0054 0500        R     INC     i
+0056         ?C0144:
+0056 6411              XRL     A,#011H
+0058 4500        R     ORL     A,i
+005A 70BD              JNZ     ?C0009
+                                           ; SOURCE LINE # 166
+005C         ?C0012:
+005C 0500        E     INC     ?C_IBP
+005E 0500        E     INC     ?C_IBP
+0060 0500        E     INC     ?C_IBP
+0062 22                RET     
+             ; FUNCTION _?display_refresh (END)
+
+             ; FUNCTION _?value_to_string (BEGIN)
+                                           ; SOURCE LINE # 171
+0000 120000      R     LCALL   L?0180
+0003 120000      R     LCALL   L?0199
+0006 E500        E     MOV     A,?C_IBP
+0008 24FB              ADD     A,#0FBH
+000A F500        E     MOV     ?C_IBP,A
+                                           ; SOURCE LINE # 172
+000C 2405              ADD     A,#05H
+000E F8                MOV     R0,A
+000F E6                MOV     A,@R0
+0010 FE                MOV     R6,A
+0011 08                INC     R0
+0012 E6                MOV     A,@R0
+0013 FF                MOV     R7,A
+0014 120000      R     LCALL   L?0200
+                                           ; SOURCE LINE # 173
+0017 E500        E     MOV     A,?C_IBP
+0019 2407              ADD     A,#07H
+001B F8                MOV     R0,A
+001C 120000      E     LCALL   ?C?PLDIDATA
+001F A800        E     MOV     R0,?C_IBP
+0021 08                INC     R0
+0022 08                INC     R0
+0023 120000      E     LCALL   ?C?PSTIDATA
+                                           ; SOURCE LINE # 174
+0026 E4                CLR     A
+0027 F500        R     MOV     i,A
+0029 F500        R     MOV     i+01H,A
+002B         ?C0013:
+                                           ; SOURCE LINE # 175
+002B A800        E     MOV     R0,?C_IBP
+002D 120000      R     LCALL   L?0207
+0030 ED                MOV     A,R5
+0031 24D0              ADD     A,#0D0H
+0033 FF                MOV     R7,A
+0034 120000      R     LCALL   L?0210
+0037 EF                MOV     A,R7
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 24  
+
+0038 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 176
+003B A800        E     MOV     R0,?C_IBP
+003D C000              PUSH    AR0
+003F 120000      R     LCALL   L?0207
+0042 D000              POP     AR0
+0044 A606              MOV     @R0,AR6
+0046 08                INC     R0
+0047 A607              MOV     @R0,AR7
+                                           ; SOURCE LINE # 177
+0049 120000      R     LCALL   L?0201
+                                           ; SOURCE LINE # 178
+004C A900        E     MOV     R1,?C_IBP
+004E 09                INC     R1
+004F E7                MOV     A,@R1
+0050 19                DEC     R1
+0051 47                ORL     A,@R1
+0052 600E              JZ      ?C0017
+0054         ?C0016:
+                                           ; SOURCE LINE # 179
+0054         ?C0015:
+0054 0500        R     INC     i+01H
+0056 E500        R     MOV     A,i+01H
+0058 7002              JNZ     ?C0145
+005A 0500        R     INC     i
+005C         ?C0145:
+005C 6405              XRL     A,#05H
+005E 4500        R     ORL     A,i
+0060 70C9              JNZ     ?C0013
+0062         ?C0017:
+                                           ; SOURCE LINE # 180
+0062 C3                CLR     C
+0063 E500        R     MOV     A,i+01H
+0065 9405              SUBB    A,#05H
+0067 E500        R     MOV     A,i
+0069 9400              SUBB    A,#00H
+006B 5015              JNC     ?C0019
+                                           ; SOURCE LINE # 181
+006D 120000      R     LCALL   L?0210
+0070 7420              MOV     A,#020H
+0072 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 182
+0075 0500        R     INC     i+01H
+0077 E500        R     MOV     A,i+01H
+0079 7002              JNZ     ?C0146
+007B 0500        R     INC     i
+007D         ?C0146:
+                                           ; SOURCE LINE # 183
+007D 120000      R     LCALL   L?0201
+                                           ; SOURCE LINE # 184
+0080 80E0              SJMP    ?C0017
+                                           ; SOURCE LINE # 185
+0082         ?C0019:
+0082 E500        E     MOV     A,?C_IBP
+0084 240A              ADD     A,#0AH
+0086 F500        E     MOV     ?C_IBP,A
+0088 22                RET     
+             ; FUNCTION _?value_to_string (END)
+
+             ; FUNCTION time_to_string (BEGIN)
+                                           ; SOURCE LINE # 191
+                                           ; SOURCE LINE # 192
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 25  
+
+0000 E500        R     MOV     A,hours
+0002 75F00A            MOV     B,#0AH
+0005 84                DIV     AB
+0006 900000      R     MOV     DPTR,#time_str+02H
+0009 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 193
+000A E500        R     MOV     A,hours
+000C 120000      R     LCALL   L?0205
+                                           ; SOURCE LINE # 194
+000F E500        R     MOV     A,minutes
+0011 75F00A            MOV     B,#0AH
+0014 84                DIV     AB
+0015 900000      R     MOV     DPTR,#time_str+07H
+0018 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 195
+0019 E500        R     MOV     A,minutes
+001B 120000      R     LCALL   L?0205
+                                           ; SOURCE LINE # 196
+001E E500        R     MOV     A,seconds
+0020 75F00A            MOV     B,#0AH
+0023 84                DIV     AB
+0024 900000      R     MOV     DPTR,#time_str+0CH
+0027 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 197
+0028 E500        R     MOV     A,seconds
+002A 120000      R     LCALL   L?0206
+                                           ; SOURCE LINE # 198
+002D 22                RET     
+             ; FUNCTION time_to_string (END)
+
+             ; FUNCTION setup_sales_data (BEGIN)
+                                           ; SOURCE LINE # 204
+                                           ; SOURCE LINE # 205
+0000 750001      R     MOV     num,#01H
+0003 750000      R     MOV     num+01H,#HIGH product_database+0EH
+0006 750000      R     MOV     num+02H,#LOW product_database+0EH
+                                           ; SOURCE LINE # 206
+0009 120000      R     LCALL   L?0214
+                                           ; SOURCE LINE # 207
+000C 750001      R     MOV     cur_sales_ptr,#01H
+000F 750000      R     MOV     cur_sales_ptr+01H,#HIGH sales_data
+0012 750000      R     MOV     cur_sales_ptr+02H,#LOW sales_data
+                                           ; SOURCE LINE # 208
+0015 E4                CLR     A
+0016 F500        R     MOV     i,A
+0018 F500        R     MOV     i+01H,A
+001A         ?C0021:
+                                           ; SOURCE LINE # 209
+001A 120000      R     LCALL   L?0215
+001D 120000      E     LCALL   ?C?ILDPTR
+0020 D3                SETB    C
+0021 9400              SUBB    A,#00H
+0023 E5F0              MOV     A,B
+0025 9400              SUBB    A,#00H
+0027 4062              JC      ?C0024
+                                           ; SOURCE LINE # 210
+0029 E4                CLR     A
+002A F500        R     MOV     j,A
+002C F500        R     MOV     j+01H,A
+002E         ?C0025:
+                                           ; SOURCE LINE # 211
+002E AB00        R     MOV     R3,cur_database_ptr
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 26  
+
+0030 AA00        R     MOV     R2,cur_database_ptr+01H
+0032 A900        R     MOV     R1,cur_database_ptr+02H
+0034 850082      R     MOV     DPL,j+01H
+0037 850083      R     MOV     DPH,j
+003A 120000      E     LCALL   ?C?CLDOPTR
+003D AB00        R     MOV     R3,cur_sales_ptr
+003F AA00        R     MOV     R2,cur_sales_ptr+01H
+0041 A900        R     MOV     R1,cur_sales_ptr+02H
+                                           ; SOURCE LINE # 212
+0043 120000      R     LCALL   L?0184
+                                           ; SOURCE LINE # 213
+0046 0500        R     INC     j+01H
+0048 E500        R     MOV     A,j+01H
+004A 7002              JNZ     ?C0147
+004C 0500        R     INC     j
+004E         ?C0147:
+004E 640C              XRL     A,#0CH
+0050 4500        R     ORL     A,j
+0052 70DA              JNZ     ?C0025
+0054         ?C0026:
+                                           ; SOURCE LINE # 214
+0054 7405              MOV     A,#05H
+0056 120000      R     LCALL   L?0186
+                                           ; SOURCE LINE # 215
+0059 120000      R     LCALL   L?0215
+005C 120000      E     LCALL   ?C?ILDPTR
+005F FF                MOV     R7,A
+0060 AEF0              MOV     R6,B
+0062 AB00        R     MOV     R3,cur_sales_ptr
+0064 AA00        R     MOV     R2,cur_sales_ptr+01H
+0066 A900        R     MOV     R1,cur_sales_ptr+02H
+0068 120000      R     LCALL   _?value_to_string
+                                           ; SOURCE LINE # 216
+006B 120000      R     LCALL   L?0185
+006E AB00        R     MOV     R3,cur_sales_ptr
+0070 FA                MOV     R2,A
+0071 A900        R     MOV     R1,cur_sales_ptr+02H
+0073 740A              MOV     A,#0AH
+                                           ; SOURCE LINE # 217
+0075 120000      R     LCALL   L?0184
+0078 AB00        R     MOV     R3,cur_sales_ptr
+007A FA                MOV     R2,A
+007B A900        R     MOV     R1,cur_sales_ptr+02H
+007D 740D              MOV     A,#0DH
+007F 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 218
+0082 120000      R     LCALL   L?0216
+0085 E4                CLR     A
+0086 F5F0              MOV     B,A
+0088 120000      E     LCALL   ?C?ISTPTR
+                                           ; SOURCE LINE # 219
+008B         ?C0024:
+                                           ; SOURCE LINE # 220
+008B 120000      R     LCALL   L?0185
+                                           ; SOURCE LINE # 221
+008E 7420              MOV     A,#020H
+0090 2500        R     ADD     A,num+02H
+0092 F500        R     MOV     num+02H,A
+0094 E4                CLR     A
+0095 3500        R     ADDC    A,num+01H
+0097 F500        R     MOV     num+01H,A
+                                           ; SOURCE LINE # 222
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 27  
+
+0099 7410              MOV     A,#010H
+009B 120000      R     LCALL   L?0187
+                                           ; SOURCE LINE # 224
+009E 0500        R     INC     i+01H
+00A0 E500        R     MOV     A,i+01H
+00A2 7002              JNZ     ?C0148
+00A4 0500        R     INC     i
+00A6         ?C0148:
+00A6 C3                CLR     C
+00A7 94E8              SUBB    A,#0E8H
+00A9 E500        R     MOV     A,i
+00AB 9403              SUBB    A,#03H
+00AD 5003              JNC     $ + 5H
+00AF 020000      R     LJMP    ?C0021
+                                           ; SOURCE LINE # 225
+00B2         ?C0028:
+00B2 22                RET     
+             ; FUNCTION setup_sales_data (END)
+
+             ; FUNCTION L?0195 (BEGIN)
+0000 AB00        R     MOV     R3,cur_bill_ptr
+0002 AA00        R     MOV     R2,cur_bill_ptr+01H
+0004 A900        R     MOV     R1,cur_bill_ptr+02H
+0006         L?0196:
+0006 7E00              MOV     R6,#00H
+0008 7F0C              MOV     R7,#0CH
+             ; FUNCTION _?copy_string (BEGIN)
+                                           ; SOURCE LINE # 230
+000A 120000      R     LCALL   L?0180
+000D 120000      R     LCALL   L?0199
+                                           ; SOURCE LINE # 231
+0010 E4                CLR     A
+0011 F500        R     MOV     i,A
+0013 F500        R     MOV     i+01H,A
+0015         ?C0029:
+0015 A900        E     MOV     R1,?C_IBP
+0017 C3                CLR     C
+0018 E500        R     MOV     A,i+01H
+001A 09                INC     R1
+001B 97                SUBB    A,@R1
+001C E500        R     MOV     A,i
+001E 19                DEC     R1
+001F 97                SUBB    A,@R1
+0020 501E              JNC     ?C0032
+                                           ; SOURCE LINE # 232
+0022 E500        E     MOV     A,?C_IBP
+0024 2405              ADD     A,#05H
+0026 120000      R     LCALL   L?0183
+0029 120000      R     LCALL   L?0211
+002C 850082      R     MOV     DPL,i+01H
+002F 850083      R     MOV     DPH,i
+0032 EF                MOV     A,R7
+0033 120000      E     LCALL   ?C?CSTOPTR
+0036 0500        R     INC     i+01H
+0038 E500        R     MOV     A,i+01H
+003A 70D9              JNZ     ?C0029
+003C 0500        R     INC     i
+003E         ?C0149:
+003E 80D5              SJMP    ?C0029
+                                           ; SOURCE LINE # 233
+0040         ?C0032:
+0040 E500        E     MOV     A,?C_IBP
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 28  
+
+0042 2408              ADD     A,#08H
+0044 F500        E     MOV     ?C_IBP,A
+0046 22                RET     
+             ; FUNCTION _?copy_string (END)
+
+             ; FUNCTION keyboard (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C0F0              PUSH    B
+0004 C083              PUSH    DPH
+0006 C082              PUSH    DPL
+0008 C0D0              PUSH    PSW
+000A 75D000            MOV     PSW,#00H
+                                           ; SOURCE LINE # 242
+                                           ; SOURCE LINE # 243
+000D 750000      R     MOV     key,#00H
+                                           ; SOURCE LINE # 248
+0010 750000      R     MOV     i,#00H
+0013         ?C0033:
+                                           ; SOURCE LINE # 249
+0013 E500        R     MOV     A,i
+0015 5403              ANL     A,#03H
+0017 900000      R     MOV     DPTR,#scan
+001A 93                MOVC    A,@A+DPTR
+001B FF                MOV     R7,A
+001C 908000            MOV     DPTR,#key_portA
+001F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 250
+0020 A3                INC     DPTR
+0021 E0                MOVX    A,@DPTR
+0022 5F                ANL     A,R7
+;---- Variable 'temp' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 251
+0023 700A              JNZ     ?C0035
+                                           ; SOURCE LINE # 252
+0025 E500        R     MOV     A,i
+0027 900000      R     MOV     DPTR,#keys
+002A 93                MOVC    A,@A+DPTR
+002B F500        R     MOV     key,A
+                                           ; SOURCE LINE # 253
+002D 8007              SJMP    ?C0034
+                                           ; SOURCE LINE # 254
+                                           ; SOURCE LINE # 255
+002F         ?C0035:
+002F 0500        R     INC     i
+0031 E500        R     MOV     A,i
+0033 B410DD            CJNE    A,#010H,?C0033
+0036         ?C0034:
+                                           ; SOURCE LINE # 256
+0036 E500        R     MOV     A,key
+0038 7003              JNZ     $ + 5H
+003A 020000      R     LJMP    keyEnd
+003D         ?C0037:
+                                           ; SOURCE LINE # 257
+003D E500        R     MOV     A,key
+003F 120000      E     LCALL   ?C?CCASE
+0042 0000        R     DW      ?C0048
+0044 01                DB      01H
+0045 0000        R     DW      ?C0048
+0047 02                DB      02H
+0048 0000        R     DW      ?C0048
+004A 03                DB      03H
+004B 0000        R     DW      ?C0048
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 29  
+
+004D 04                DB      04H
+004E 0000        R     DW      ?C0048
+0050 05                DB      05H
+0051 0000        R     DW      ?C0048
+0053 06                DB      06H
+0054 0000        R     DW      ?C0048
+0056 07                DB      07H
+0057 0000        R     DW      ?C0048
+0059 08                DB      08H
+005A 0000        R     DW      ?C0048
+005C 09                DB      09H
+005D 0000        R     DW      ?C0077
+005F 2A                DB      02AH
+0060 0000        R     DW      ?C0060
+0062 2B                DB      02BH
+0063 0000        R     DW      ?C0063
+0065 2D                DB      02DH
+0066 0000        R     DW      ?C0066
+0068 3D                DB      03DH
+0069 0000        R     DW      ?C0076
+006B 43                DB      043H
+006C 0000        R     DW      ?C0072
+006E 46                DB      046H
+006F 0000              DW      00H
+0071 0000        R     DW      keyEnd
+                                           ; SOURCE LINE # 259
+                                           ; SOURCE LINE # 260
+0073         ?C0048:
+                                           ; SOURCE LINE # 261
+0073 300003      R     JNB     error,$ + 6H
+0076 020000      R     LJMP    keyEnd
+0079         ?C0049:
+                                           ; SOURCE LINE # 262
+0079 20005C      R     JB      isFunction,?C0050
+007C 200059      R     JB      isAmount,?C0050
+                                           ; SOURCE LINE # 263
+007F AE00        R     MOV     R6,cur_product_id
+0081 AF00        R     MOV     R7,cur_product_id+01H
+0083 120000      R     LCALL   L?0213
+0086 F500        R     MOV     cur_product_id+01H,A
+0088 EC                MOV     A,R4
+0089 3E                ADDC    A,R6
+008A F500        R     MOV     cur_product_id,A
+                                           ; SOURCE LINE # 264
+008C E500        R     MOV     A,cur_product_id+01H
+008E C4                SWAP    A
+008F F8                MOV     R0,A
+0090 540F              ANL     A,#0FH
+0092 C8                XCH     A,R0
+0093 68                XRL     A,R0
+0094 FF                MOV     R7,A
+0095 E500        R     MOV     A,cur_product_id
+0097 C4                SWAP    A
+0098 54F0              ANL     A,#0F0H
+009A 48                ORL     A,R0
+009B FE                MOV     R6,A
+009C 7B01              MOV     R3,#01H
+009E 7400        R     MOV     A,#LOW product_database
+00A0 2F                ADD     A,R7
+00A1 F9                MOV     R1,A
+00A2 7400        R     MOV     A,#HIGH product_database
+00A4 3E                ADDC    A,R6
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 30  
+
+00A5 FA                MOV     R2,A
+00A6 900000      R     MOV     DPTR,#cur_product_offset
+00A9 120000      E     LCALL   ?C?PSTXDATA
+                                           ; SOURCE LINE # 265
+00AC C200        R     CLR     show_clock
+                                           ; SOURCE LINE # 266
+00AE 120000      R     LCALL   L?0178
+00B1 7B01              MOV     R3,#01H
+00B3 7A00        R     MOV     R2,#HIGH data_str
+00B5 7900        R     MOV     R1,#LOW data_str
+00B7 120000      R     LCALL   L?0196
+                                           ; SOURCE LINE # 267
+00BA 120000      R     LCALL   L?0194
+00BD 90000C            MOV     DPTR,#0CH
+00C0 120000      E     LCALL   ?C?CLDOPTR
+00C3 8E00        R     MOV     cur_product_price,R6
+00C5 F500        R     MOV     cur_product_price+01H,A
+                                           ; SOURCE LINE # 268
+00C7 7A00        R     MOV     R2,#HIGH data_str+010H
+00C9 7900        R     MOV     R1,#LOW data_str+010H
+00CB AE00        R     MOV     R6,cur_product_price
+00CD FF                MOV     R7,A
+                                           ; SOURCE LINE # 269
+00CE 120000      R     LCALL   L?0212
+00D1 7A00        R     MOV     R2,#HIGH data_str
+00D3 7900        R     MOV     R1,#LOW data_str
+                                           ; SOURCE LINE # 270
+00D5 020000      R     LJMP    ?C0159
+00D8         ?C0050:
+00D8 200034      R     JB      isFunction,?C0052
+                                           ; SOURCE LINE # 271
+00DB AE00        R     MOV     R6,cur_amount
+00DD AF00        R     MOV     R7,cur_amount+01H
+00DF 120000      R     LCALL   L?0213
+00E2 F500        R     MOV     cur_amount+01H,A
+00E4 EC                MOV     A,R4
+00E5 3E                ADDC    A,R6
+00E6 F500        R     MOV     cur_amount,A
+                                           ; SOURCE LINE # 272
+00E8 C200        R     CLR     show_clock
+                                           ; SOURCE LINE # 273
+00EA 7A00        R     MOV     R2,#HIGH amount_str+05H
+00EC 7900        R     MOV     R1,#LOW amount_str+05H
+00EE FE                MOV     R6,A
+00EF AF00        R     MOV     R7,cur_amount+01H
+                                           ; SOURCE LINE # 274
+00F1 120000      R     LCALL   L?0212
+00F4 7A00        R     MOV     R2,#HIGH amount_str+010H
+00F6 7900        R     MOV     R1,#LOW amount_str+010H
+00F8 AC00        R     MOV     R4,cur_product_price
+00FA AD00        R     MOV     R5,cur_product_price+01H
+00FC AE00        R     MOV     R6,cur_amount
+00FE AF00        R     MOV     R7,cur_amount+01H
+0100 120000      E     LCALL   ?C?IMUL
+0103 120000      R     LCALL   _?value_to_string
+                                           ; SOURCE LINE # 275
+0106 7B01              MOV     R3,#01H
+0108 7A00        R     MOV     R2,#HIGH amount_str
+010A 7900        R     MOV     R1,#LOW amount_str
+010C         ?C0156:
+                                           ; SOURCE LINE # 276
+010C 020000      R     LJMP    ?C0159
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 31  
+
+010F         ?C0052:
+010F 200003      R     JB      isFunction,$ + 6H
+0112 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 277
+0115 E500        R     MOV     A,key
+0117 14                DEC     A
+0118 601B              JZ      ?C0057
+011A 14                DEC     A
+011B 6035              JZ      ?C0058
+011D 14                DEC     A
+011E 6048              JZ      ?C0059
+0120 2403              ADD     A,#03H
+0122 6003              JZ      $ + 5H
+0124 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 278
+0127         ?C0056:
+                                           ; SOURCE LINE # 279
+0127 120000      R     LCALL   setup_sales_data
+                                           ; SOURCE LINE # 280
+012A 75003E      R     MOV     numChar_to_print,#03EH
+012D 750080      R     MOV     numChar_to_print+01H,#080H
+                                           ; SOURCE LINE # 281
+0130 43A810            ORL     IE,#010H
+                                           ; SOURCE LINE # 282
+                                           ; SOURCE LINE # 283
+                                           ; SOURCE LINE # 284
+0133 8015              SJMP    ?C0158
+                                           ; SOURCE LINE # 285
+0135         ?C0057:
+                                           ; SOURCE LINE # 286
+0135 120000      R     LCALL   setup_sales_data
+                                           ; SOURCE LINE # 287
+0138 750001      R     MOV     print_ptr,#01H
+013B 750000      R     MOV     print_ptr+01H,#HIGH sales_data
+013E 750000      R     MOV     print_ptr+02H,#LOW sales_data
+                                           ; SOURCE LINE # 288
+0141 75003E      R     MOV     numChar_to_print,#03EH
+0144 750080      R     MOV     numChar_to_print+01H,#080H
+                                           ; SOURCE LINE # 290
+0147 438810            ORL     TCON,#010H
+                                           ; SOURCE LINE # 291
+014A         ?C0158:
+014A 53A8FE            ANL     IE,#0FEH
+                                           ; SOURCE LINE # 292
+014D D200        R     SETB    show_clock
+                                           ; SOURCE LINE # 293
+014F 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 294
+0152         ?C0058:
+                                           ; SOURCE LINE # 296
+0152 7B01              MOV     R3,#01H
+0154 7A00        R     MOV     R2,#HIGH sys_total_str+010H
+0156 7900        R     MOV     R1,#LOW sys_total_str+010H
+0158 AE00        R     MOV     R6,total
+015A AF00        R     MOV     R7,total+01H
+015C 120000      R     LCALL   _?value_to_string
+                                           ; SOURCE LINE # 297
+015F 7B01              MOV     R3,#01H
+0161 7A00        R     MOV     R2,#HIGH sys_total_str
+0163 7900        R     MOV     R1,#LOW sys_total_str
+0165         ?C0157:
+                                           ; SOURCE LINE # 298
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 32  
+
+0165 020000      R     LJMP    ?C0159
+                                           ; SOURCE LINE # 299
+0168         ?C0059:
+                                           ; SOURCE LINE # 301
+0168 D200        R     SETB    isLad
+                                           ; SOURCE LINE # 302
+016A 438810            ORL     TCON,#010H
+                                           ; SOURCE LINE # 303
+016D 908002            MOV     DPTR,#key_portC
+0170 E0                MOVX    A,@DPTR
+0171 4401              ORL     A,#01H
+0173 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 304
+0174 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 305
+                                           ; SOURCE LINE # 306
+                                           ; SOURCE LINE # 307
+                                           ; SOURCE LINE # 308
+0177         ?C0060:
+                                           ; SOURCE LINE # 309
+0177 200003      R     JB      error,$ + 6H
+017A 020000      R     LJMP    keyEnd
+017D         ?C0061:
+                                           ; SOURCE LINE # 310
+017D 120000      R     LCALL   L?0178
+0180 120000      R     LCALL   L?0195
+                                           ; SOURCE LINE # 311
+0183 740C              MOV     A,#0CH
+0185 120000      R     LCALL   L?0172
+                                           ; SOURCE LINE # 312
+0188 120000      R     LCALL   L?0202
+                                           ; SOURCE LINE # 313
+018B EF                MOV     A,R7
+018C 2500        R     ADD     A,bill_price
+018E F500        R     MOV     bill_price,A
+                                           ; SOURCE LINE # 314
+0190 E500        R     MOV     A,cur_sum+01H
+0192 2500        R     ADD     A,total+01H
+0194 F500        R     MOV     total+01H,A
+0196 E500        R     MOV     A,cur_sum
+0198 3500        R     ADDC    A,total
+                                           ; SOURCE LINE # 315
+                                           ; SOURCE LINE # 316
+                                           ; SOURCE LINE # 317
+                                           ; SOURCE LINE # 318
+019A 120000      R     LCALL   L?0168
+                                           ; SOURCE LINE # 319
+                                           ; SOURCE LINE # 320
+019D 120000      R     LCALL   L?0193
+01A0 90000E            MOV     DPTR,#0EH
+01A3 E500        R     MOV     A,cur_amount+01H
+01A5 120000      E     LCALL   ?C?CILDOPTR
+                                           ; SOURCE LINE # 321
+                                           ; SOURCE LINE # 322
+                                           ; SOURCE LINE # 323
+                                           ; SOURCE LINE # 324
+                                           ; SOURCE LINE # 325
+                                           ; SOURCE LINE # 326
+                                           ; SOURCE LINE # 327
+01A8 120000      R     LCALL   L?0176
+                                           ; SOURCE LINE # 328
+01AB 300003      R     JNB     isPrinting,$ + 6H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 33  
+
+01AE 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 329
+                                           ; SOURCE LINE # 330
+                                           ; SOURCE LINE # 331
+                                           ; SOURCE LINE # 333
+                                           ; SOURCE LINE # 334
+01B1 020000      R     LJMP    ?C0160
+                                           ; SOURCE LINE # 335
+01B4         ?C0063:
+                                           ; SOURCE LINE # 336
+01B4 200003      R     JB      error,$ + 6H
+01B7 020000      R     LJMP    keyEnd
+01BA         ?C0064:
+                                           ; SOURCE LINE # 337
+01BA AB00        R     MOV     R3,cur_bill_ptr
+01BC AA00        R     MOV     R2,cur_bill_ptr+01H
+01BE 742D              MOV     A,#02DH
+                                           ; SOURCE LINE # 338
+01C0 120000      R     LCALL   L?0170
+                                           ; SOURCE LINE # 339
+01C3 120000      R     LCALL   L?0179
+01C6 120000      R     LCALL   L?0195
+                                           ; SOURCE LINE # 340
+01C9 740C              MOV     A,#0CH
+01CB 120000      R     LCALL   L?0172
+                                           ; SOURCE LINE # 341
+01CE 120000      R     LCALL   L?0202
+                                           ; SOURCE LINE # 342
+01D1 C3                CLR     C
+01D2 E500        R     MOV     A,bill_price
+01D4 9F                SUBB    A,R7
+01D5 F500        R     MOV     bill_price,A
+                                           ; SOURCE LINE # 343
+01D7 C3                CLR     C
+01D8 E500        R     MOV     A,total+01H
+01DA 9500        R     SUBB    A,cur_sum+01H
+01DC F500        R     MOV     total+01H,A
+01DE E500        R     MOV     A,total
+01E0 9500        R     SUBB    A,cur_sum
+                                           ; SOURCE LINE # 344
+                                           ; SOURCE LINE # 345
+                                           ; SOURCE LINE # 346
+                                           ; SOURCE LINE # 347
+01E2 120000      R     LCALL   L?0168
+                                           ; SOURCE LINE # 348
+                                           ; SOURCE LINE # 349
+01E5 120000      R     LCALL   L?0193
+01E8 E9                MOV     A,R1
+01E9 240E              ADD     A,#0EH
+01EB F9                MOV     R1,A
+01EC E4                CLR     A
+01ED 3A                ADDC    A,R2
+01EE FA                MOV     R2,A
+01EF 120000      E     LCALL   ?C?CLDPTR
+01F2 C3                CLR     C
+01F3 9500        R     SUBB    A,cur_amount+01H
+01F5 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 350
+                                           ; SOURCE LINE # 351
+                                           ; SOURCE LINE # 352
+                                           ; SOURCE LINE # 353
+                                           ; SOURCE LINE # 354
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 34  
+
+                                           ; SOURCE LINE # 355
+                                           ; SOURCE LINE # 356
+01F8 120000      R     LCALL   L?0176
+                                           ; SOURCE LINE # 357
+01FB 300003      R     JNB     isPrinting,$ + 6H
+01FE 020000      R     LJMP    keyEnd
+                                           ; SOURCE LINE # 358
+0201 D200        R     SETB    isPrinting
+                                           ; SOURCE LINE # 359
+0203         ?C0160:
+0203 120000      R     LCALL   L?0203
+                                           ; SOURCE LINE # 360
+0206 750001      R     MOV     counter_mode,#01H
+                                           ; SOURCE LINE # 361
+                                           ; SOURCE LINE # 362
+                                           ; SOURCE LINE # 363
+0209 020000      R     LJMP    ?C0161
+                                           ; SOURCE LINE # 364
+020C         ?C0066:
+                                           ; SOURCE LINE # 365
+020C 300003      R     JNB     error,$ + 6H
+020F 020000      R     LJMP    keyEnd
+0212         ?C0067:
+                                           ; SOURCE LINE # 366
+0212 750000      R     MOV     i,#00H
+0215         ?C0068:
+                                           ; SOURCE LINE # 367
+0215 120000      R     LCALL   L?0217
+0218 743D              MOV     A,#03DH
+                                           ; SOURCE LINE # 368
+021A 120000      R     LCALL   L?0171
+                                           ; SOURCE LINE # 369
+021D 0500        R     INC     i
+021F E500        R     MOV     A,i
+0221 B40AF1            CJNE    A,#0AH,?C0068
+0224         ?C0069:
+                                           ; SOURCE LINE # 370
+0224 AA00        R     MOV     R2,cur_bill_ptr+01H
+                                           ; SOURCE LINE # 371
+0226 120000      R     LCALL   L?0169
+                                           ; SOURCE LINE # 372
+0229 AB00        R     MOV     R3,cur_bill_ptr
+022B FA                MOV     R2,A
+022C A900        R     MOV     R1,cur_bill_ptr+02H
+022E 740A              MOV     A,#0AH
+0230 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 373
+0233 120000      R     LCALL   L?0217
+0236 AF00        R     MOV     R7,bill_price
+0238 7E00              MOV     R6,#00H
+023A 120000      R     LCALL   _?value_to_string
+                                           ; SOURCE LINE # 374
+023D 120000      R     LCALL   L?0218
+0240 900005            MOV     DPTR,#05H
+0243 741B              MOV     A,#01BH
+0245 120000      E     LCALL   ?C?CSTOPTR
+                                           ; SOURCE LINE # 375
+0248 750000      R     MOV     cur_bill_ptr,#00H
+024B 750000      R     MOV     cur_bill_ptr+01H,#00H
+024E 750000      R     MOV     cur_bill_ptr+02H,#00H
+                                           ; SOURCE LINE # 376
+0251 750000      R     MOV     bill_price,#00H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 35  
+
+                                           ; SOURCE LINE # 377
+0254 D200        R     SETB    isReady
+                                           ; SOURCE LINE # 378
+0256 D200        R     SETB    show_clock
+                                           ; SOURCE LINE # 380
+0258 D200        R     SETB    isLad
+                                           ; SOURCE LINE # 381
+025A 908002            MOV     DPTR,#key_portC
+025D E0                MOVX    A,@DPTR
+025E 4401              ORL     A,#01H
+0260 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 382
+0261 7411              MOV     A,#011H
+0263 120000      R     LCALL   L?0177
+                                           ; SOURCE LINE # 383
+0266 200037      R     JB      isPrinting,keyEnd
+                                           ; SOURCE LINE # 384
+0269 D200        R     SETB    isPrinting
+                                           ; SOURCE LINE # 385
+026B         ?C0161:
+026B 5388EF            ANL     TCON,#0EFH
+                                           ; SOURCE LINE # 386
+                                           ; SOURCE LINE # 387
+026E 8030              SJMP    keyEnd
+                                           ; SOURCE LINE # 388
+0270         ?C0072:
+                                           ; SOURCE LINE # 389
+0270 20002D      R     JB      error,keyEnd
+0273         ?C0073:
+                                           ; SOURCE LINE # 390
+0273 30001F      R     JNB     isReady,errorLab
+0276         ?C0074:
+                                           ; SOURCE LINE # 391
+0276 D200        R     SETB    isFunction
+                                           ; SOURCE LINE # 392
+0278 8026              SJMP    keyEnd
+                                           ; SOURCE LINE # 393
+027A         ?C0076:
+                                           ; SOURCE LINE # 394
+027A C200        R     CLR     isFunction
+                                           ; SOURCE LINE # 395
+027C 750000      R     MOV     cur_product_id,#00H
+027F 750000      R     MOV     cur_product_id+01H,#00H
+                                           ; SOURCE LINE # 396
+0282 750000      R     MOV     cur_amount,#00H
+0285 750001      R     MOV     cur_amount+01H,#01H
+                                           ; SOURCE LINE # 397
+0288 C200        R     CLR     isAmount
+                                           ; SOURCE LINE # 398
+028A D200        R     SETB    show_clock
+                                           ; SOURCE LINE # 399
+028C 8012              SJMP    keyEnd
+                                           ; SOURCE LINE # 400
+028E         ?C0077:
+                                           ; SOURCE LINE # 401
+028E 20000F      R     JB      error,keyEnd
+0291         ?C0078:
+                                           ; SOURCE LINE # 402
+0291 D200        R     SETB    isAmount
+                                           ; SOURCE LINE # 403
+0293 800B              SJMP    keyEnd
+                                           ; SOURCE LINE # 405
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 36  
+
+                                           ; SOURCE LINE # 406
+                                           ; SOURCE LINE # 407
+0295         errorLab:
+                                           ; SOURCE LINE # 408
+0295 D200        R     SETB    error
+                                           ; SOURCE LINE # 409
+0297 7B01              MOV     R3,#01H
+0299 7A00        R     MOV     R2,#HIGH err_str
+029B 7900        R     MOV     R1,#LOW err_str
+029D         ?C0159:
+029D 120000      R     LCALL   _?fill_display_buf
+                                           ; SOURCE LINE # 410
+02A0         keyEnd:
+                                           ; SOURCE LINE # 411
+02A0 908000            MOV     DPTR,#key_portA
+02A3 E4                CLR     A
+02A4 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 412
+02A5 D0D0              POP     PSW
+02A7 D082              POP     DPL
+02A9 D083              POP     DPH
+02AB D0F0              POP     B
+02AD D0E0              POP     ACC
+02AF 32                RETI    
+             ; FUNCTION keyboard (END)
+
+             ; FUNCTION time (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C0F0              PUSH    B
+0004 C083              PUSH    DPH
+0006 C082              PUSH    DPL
+0008 C0D0              PUSH    PSW
+000A 75D008            MOV     PSW,#08H
+                                           ; SOURCE LINE # 418
+                                           ; SOURCE LINE # 420
+000D E500        R     MOV     A,clkSec+01H
+000F 1500        R     DEC     clkSec+01H
+0011 7002              JNZ     ?C0150
+0013 1500        R     DEC     clkSec
+0015         ?C0150:
+0015 14                DEC     A
+0016 4500        R     ORL     A,clkSec
+0018 7033              JNZ     ?C0080
+                                           ; SOURCE LINE # 421
+001A 75000F      R     MOV     clkSec,#0FH
+001D 7500A0      R     MOV     clkSec+01H,#0A0H
+                                           ; SOURCE LINE # 422
+0020 0500        R     INC     seconds
+0022 E500        R     MOV     A,seconds
+0024 B43C17            CJNE    A,#03CH,?C0081
+                                           ; SOURCE LINE # 423
+0027 750000      R     MOV     seconds,#00H
+                                           ; SOURCE LINE # 424
+002A 0500        R     INC     minutes
+002C E500        R     MOV     A,minutes
+002E B43C0D            CJNE    A,#03CH,?C0081
+                                           ; SOURCE LINE # 425
+0031 750000      R     MOV     minutes,#00H
+                                           ; SOURCE LINE # 426
+0034 0500        R     INC     hours
+0036 E500        R     MOV     A,hours
+0038 B41803            CJNE    A,#018H,?C0081
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 37  
+
+                                           ; SOURCE LINE # 427
+003B 750000      R     MOV     hours,#00H
+                                           ; SOURCE LINE # 428
+                                           ; SOURCE LINE # 429
+                                           ; SOURCE LINE # 430
+003E         ?C0081:
+                                           ; SOURCE LINE # 431
+003E 30000C      R     JNB     show_clock,?C0080
+                                           ; SOURCE LINE # 432
+0041 120000      R     LCALL   time_to_string
+                                           ; SOURCE LINE # 433
+0044 7B01              MOV     R3,#01H
+0046 7A00        R     MOV     R2,#HIGH time_str
+0048 7900        R     MOV     R1,#LOW time_str
+004A 120000      R     LCALL   _?fill_display_buf
+                                           ; SOURCE LINE # 434
+                                           ; SOURCE LINE # 435
+004D         ?C0080:
+                                           ; SOURCE LINE # 437
+004D D50006      R     DJNZ    clkDisplay,?C0086
+                                           ; SOURCE LINE # 438
+0050 7500A0      R     MOV     clkDisplay,#0A0H
+                                           ; SOURCE LINE # 439
+0053 120000      R     LCALL   _?display_refresh
+                                           ; SOURCE LINE # 440
+                                           ; SOURCE LINE # 441
+0056         ?C0086:
+0056 D0D0              POP     PSW
+0058 D082              POP     DPL
+005A D083              POP     DPH
+005C D0F0              POP     B
+005E D0E0              POP     ACC
+0060 32                RETI    
+             ; FUNCTION time (END)
+
+             ; FUNCTION print (BEGIN)
+                                           ; SOURCE LINE # 447
+                                           ; SOURCE LINE # 448
+0000 C200        R     CLR     have_paper
+                                           ; SOURCE LINE # 449
+0002 32                RETI    
+             ; FUNCTION print (END)
+
+             ; FUNCTION counter (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+0008 75D010            MOV     PSW,#010H
+                                           ; SOURCE LINE # 455
+                                           ; SOURCE LINE # 458
+000B 758C07            MOV     TH0,#07H
+                                           ; SOURCE LINE # 459
+000E 758A0D            MOV     TL0,#0DH
+                                           ; SOURCE LINE # 461
+0011 300019      R     JNB     isLad,?C0088
+                                           ; SOURCE LINE # 462
+0014 1500        R     DEC     lad_cnt
+0016 E500        R     MOV     A,lad_cnt
+0018 6013              JZ      ?C0088
+                                           ; SOURCE LINE # 463
+001A 750096      R     MOV     lad_cnt,#096H
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 38  
+
+                                           ; SOURCE LINE # 464
+001D 43A801            ORL     IE,#01H
+                                           ; SOURCE LINE # 465
+0020 200003      R     JB      isPrinting,?C0090
+                                           ; SOURCE LINE # 466
+0023 5388EF            ANL     TCON,#0EFH
+                                           ; SOURCE LINE # 467
+0026         ?C0090:
+                                           ; SOURCE LINE # 468
+0026 908002            MOV     DPTR,#key_portC
+0029 E0                MOVX    A,@DPTR
+002A 54FE              ANL     A,#0FEH
+002C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 469
+                                           ; SOURCE LINE # 470
+002D         ?C0088:
+                                           ; SOURCE LINE # 472
+002D 200003      R     JB      have_paper,$ + 6H
+0030 020000      R     LJMP    ?C0112
+                                           ; SOURCE LINE # 473
+0033 E500        R     MOV     A,counter_mode
+0035 24FE              ADD     A,#0FEH
+0037 6027              JZ      ?C0094
+0039 14                DEC     A
+003A 6049              JZ      ?C0097
+003C 2402              ADD     A,#02H
+003E 6003              JZ      $ + 5H
+0040 020000      R     LJMP    ?C0112
+                                           ; SOURCE LINE # 474
+0043         ?C0093:
+                                           ; SOURCE LINE # 476
+0043 120000      R     LCALL   L?0189
+0046 F590              MOV     P1,A
+                                           ; SOURCE LINE # 477
+0048 7401              MOV     A,#01H
+004A 2500        R     ADD     A,print_ptr+02H
+004C F500        R     MOV     print_ptr+02H,A
+004E E4                CLR     A
+004F 3500        R     ADDC    A,print_ptr+01H
+0051 F500        R     MOV     print_ptr+01H,A
+                                           ; SOURCE LINE # 478
+0053 908002            MOV     DPTR,#key_portC
+0056 E0                MOVX    A,@DPTR
+0057 4402              ORL     A,#02H
+0059 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 479
+005A 750002      R     MOV     counter_mode,#02H
+                                           ; SOURCE LINE # 480
+005D 020000      R     LJMP    ?C0112
+                                           ; SOURCE LINE # 481
+0060         ?C0094:
+                                           ; SOURCE LINE # 484
+0060 908002            MOV     DPTR,#key_portC
+0063 E0                MOVX    A,@DPTR
+0064 54FD              ANL     A,#0FDH
+0066 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 485
+0067 120000      R     LCALL   L?0189
+006A B40D04            CJNE    A,#0DH,?C0095
+                                           ; SOURCE LINE # 486
+006D D200        R     SETB    isCr
+                                           ; SOURCE LINE # 487
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 39  
+
+006F 8002              SJMP    ?C0096
+0071         ?C0095:
+                                           ; SOURCE LINE # 488
+0071 D200        R     SETB    isChar
+                                           ; SOURCE LINE # 489
+0073         ?C0096:
+                                           ; SOURCE LINE # 490
+0073 74FF              MOV     A,#0FFH
+0075 2500        R     ADD     A,print_ptr+02H
+0077 F500        R     MOV     print_ptr+02H,A
+0079 74FF              MOV     A,#0FFH
+007B 3500        R     ADDC    A,print_ptr+01H
+007D F500        R     MOV     print_ptr+01H,A
+                                           ; SOURCE LINE # 491
+007F 750003      R     MOV     counter_mode,#03H
+                                           ; SOURCE LINE # 492
+0082 020000      R     LJMP    ?C0112
+                                           ; SOURCE LINE # 493
+0085         ?C0097:
+                                           ; SOURCE LINE # 495
+0085 300037      R     JNB     isCr,?C0098
+                                           ; SOURCE LINE # 496
+0088 1500        R     DEC     cr_cnt
+008A E500        R     MOV     A,cr_cnt
+008C 7031              JNZ     ?C0098
+                                           ; SOURCE LINE # 497
+008E 750064      R     MOV     cr_cnt,#064H
+                                           ; SOURCE LINE # 498
+0091 120000      R     LCALL   L?0190
+0094 FF                MOV     R7,A
+0095 641B              XRL     A,#01BH
+0097 6008              JZ      ?C0100
+                                           ; SOURCE LINE # 499
+0099 E500        R     MOV     A,numChar_to_print+01H
+009B 1500        R     DEC     numChar_to_print+01H
+009D 7002              JNZ     ?C0151
+009F 1500        R     DEC     numChar_to_print
+00A1         ?C0151:
+00A1         ?C0100:
+                                           ; SOURCE LINE # 500
+00A1 EF                MOV     A,R7
+00A2 641B              XRL     A,#01BH
+00A4 6006              JZ      ?C0102
+00A6 E500        R     MOV     A,numChar_to_print+01H
+00A8 4500        R     ORL     A,numChar_to_print
+00AA 7010              JNZ     ?C0101
+00AC         ?C0102:
+                                           ; SOURCE LINE # 501
+00AC 120000      R     LCALL   L?0203
+                                           ; SOURCE LINE # 502
+00AF 750000      R     MOV     counter_mode,#00H
+                                           ; SOURCE LINE # 503
+00B2 C200        R     CLR     isPrinting
+                                           ; SOURCE LINE # 504
+00B4 200008      R     JB      isLad,?C0098
+00B7 5388EF            ANL     TCON,#0EFH
+                                           ; SOURCE LINE # 505
+00BA 8003              SJMP    ?C0098
+00BC         ?C0101:
+                                           ; SOURCE LINE # 506
+00BC 750001      R     MOV     counter_mode,#01H
+                                           ; SOURCE LINE # 507
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 40  
+
+                                           ; SOURCE LINE # 508
+                                           ; SOURCE LINE # 509
+00BF         ?C0098:
+                                           ; SOURCE LINE # 510
+00BF 300037      R     JNB     isChar,?C0112
+                                           ; SOURCE LINE # 511
+00C2 1500        R     DEC     char_cnt
+00C4 E500        R     MOV     A,char_cnt
+00C6 7031              JNZ     ?C0112
+                                           ; SOURCE LINE # 512
+00C8 75000A      R     MOV     char_cnt,#0AH
+                                           ; SOURCE LINE # 513
+00CB 120000      R     LCALL   L?0190
+00CE FF                MOV     R7,A
+00CF 641B              XRL     A,#01BH
+00D1 6008              JZ      ?C0107
+                                           ; SOURCE LINE # 514
+00D3 E500        R     MOV     A,numChar_to_print+01H
+00D5 1500        R     DEC     numChar_to_print+01H
+00D7 7002              JNZ     ?C0152
+00D9 1500        R     DEC     numChar_to_print
+00DB         ?C0152:
+00DB         ?C0107:
+                                           ; SOURCE LINE # 515
+00DB EF                MOV     A,R7
+00DC 641B              XRL     A,#01BH
+00DE 6006              JZ      ?C0109
+00E0 E500        R     MOV     A,numChar_to_print+01H
+00E2 4500        R     ORL     A,numChar_to_print
+00E4 7010              JNZ     ?C0108
+00E6         ?C0109:
+                                           ; SOURCE LINE # 516
+00E6 120000      R     LCALL   L?0204
+                                           ; SOURCE LINE # 517
+00E9 750000      R     MOV     counter_mode,#00H
+                                           ; SOURCE LINE # 518
+00EC C200        R     CLR     isPrinting
+                                           ; SOURCE LINE # 519
+00EE 200008      R     JB      isLad,?C0112
+00F1 5388EF            ANL     TCON,#0EFH
+                                           ; SOURCE LINE # 520
+00F4 8003              SJMP    ?C0112
+00F6         ?C0108:
+                                           ; SOURCE LINE # 521
+00F6 750001      R     MOV     counter_mode,#01H
+                                           ; SOURCE LINE # 522
+                                           ; SOURCE LINE # 523
+                                           ; SOURCE LINE # 524
+                                           ; SOURCE LINE # 525
+                                           ; SOURCE LINE # 526
+                                           ; SOURCE LINE # 527
+                                           ; SOURCE LINE # 528
+00F9         ?C0112:
+00F9 D0D0              POP     PSW
+00FB D082              POP     DPL
+00FD D083              POP     DPH
+00FF D0E0              POP     ACC
+0101 32                RETI    
+             ; FUNCTION counter (END)
+
+             ; FUNCTION serial (BEGIN)
+0000 C0E0              PUSH    ACC
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 41  
+
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+0008 75D018            MOV     PSW,#018H
+                                           ; SOURCE LINE # 534
+                                           ; SOURCE LINE # 536
+000B 300029      R     JNB     serialF0,?C0113
+                                           ; SOURCE LINE # 537
+000E AB00        R     MOV     R3,cur_item_to_send
+0010 AA00        R     MOV     R2,cur_item_to_send+01H
+0012 A900        R     MOV     R1,cur_item_to_send+02H
+0014 120000      E     LCALL   ?C?CLDPTR
+0017 FF                MOV     R7,A
+0018 641B              XRL     A,#01BH
+001A 600F              JZ      ?C0114
+                                           ; SOURCE LINE # 538
+001C 8F99              MOV     SBUF,R7
+                                           ; SOURCE LINE # 539
+001E 7401              MOV     A,#01H
+0020 2500        R     ADD     A,cur_item_to_send+02H
+0022 F500        R     MOV     cur_item_to_send+02H,A
+0024 E4                CLR     A
+0025 3500        R     ADDC    A,cur_item_to_send+01H
+0027 F500        R     MOV     cur_item_to_send+01H,A
+                                           ; SOURCE LINE # 540
+                                           ; SOURCE LINE # 541
+0029 802A              SJMP    ?C0164
+002B         ?C0114:
+                                           ; SOURCE LINE # 542
+002B 53A8EF            ANL     IE,#0EFH
+                                           ; SOURCE LINE # 543
+002E 5398FD            ANL     SCON,#0FDH
+                                           ; SOURCE LINE # 544
+0031 43A801            ORL     IE,#01H
+                                           ; SOURCE LINE # 545
+                                           ; SOURCE LINE # 546
+0034 020000      R     LJMP    ?C0137
+0037         ?C0113:
+                                           ; SOURCE LINE # 547
+0037 E500        R     MOV     A,protocol_phase
+0039 14                DEC     A
+003A 6014              JZ      ?C0119
+003C 14                DEC     A
+003D 601C              JZ      ?C0120
+003F 14                DEC     A
+0040 6032              JZ      ?C0122
+0042 2403              ADD     A,#03H
+0044 6003              JZ      $ + 5H
+0046 020000      R     LJMP    ?C0137
+                                           ; SOURCE LINE # 548
+0049         ?C0118:
+                                           ; SOURCE LINE # 551
+0049 759916            MOV     SBUF,#016H
+                                           ; SOURCE LINE # 552
+004C 0500        R     INC     protocol_phase
+                                           ; SOURCE LINE # 553
+004E         ?C0163:
+                                           ; SOURCE LINE # 554
+004E 8005              SJMP    ?C0164
+                                           ; SOURCE LINE # 555
+0050         ?C0119:
+                                           ; SOURCE LINE # 556
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 42  
+
+0050 439810            ORL     SCON,#010H
+                                           ; SOURCE LINE # 557
+0053 0500        R     INC     protocol_phase
+                                           ; SOURCE LINE # 558
+0055         ?C0164:
+0055 5398FD            ANL     SCON,#0FDH
+                                           ; SOURCE LINE # 559
+0058 020000      R     LJMP    ?C0137
+                                           ; SOURCE LINE # 560
+005B         ?C0120:
+                                           ; SOURCE LINE # 562
+005B 859900      R     MOV     recData,SBUF
+                                           ; SOURCE LINE # 563
+005E E500        R     MOV     A,recData
+0060 6416              XRL     A,#016H
+0062 7B01              MOV     R3,#01H
+0064 6002              JZ      ?C0121
+                                           ; SOURCE LINE # 564
+                                           ; SOURCE LINE # 565
+                                           ; SOURCE LINE # 566
+                                           ; SOURCE LINE # 567
+0066 8056              SJMP    ?C0165
+                                           ; SOURCE LINE # 568
+0068         ?C0121:
+                                           ; SOURCE LINE # 569
+0068 7A00        R     MOV     R2,#HIGH programming_str
+006A 7900        R     MOV     R1,#LOW programming_str
+006C 120000      R     LCALL   _?fill_display_buf
+                                           ; SOURCE LINE # 570
+006F 0500        R     INC     protocol_phase
+                                           ; SOURCE LINE # 571
+                                           ; SOURCE LINE # 572
+0071 020000      R     LJMP    ?C0166
+                                           ; SOURCE LINE # 573
+0074         ?C0122:
+                                           ; SOURCE LINE # 575
+0074 859900      R     MOV     recData,SBUF
+                                           ; SOURCE LINE # 576
+0077 900000      R     MOV     DPTR,#prog_time
+007A E0                MOVX    A,@DPTR
+007B 6036              JZ      ?C0123
+                                           ; SOURCE LINE # 577
+007D E500        R     MOV     A,time_count
+007F 14                DEC     A
+0080 6012              JZ      ?C0126
+0082 14                DEC     A
+0083 6017              JZ      ?C0127
+0085 2402              ADD     A,#02H
+0087 6003              JZ      $ + 5H
+0089 020000      R     LJMP    ?C0128
+                                           ; SOURCE LINE # 578
+008C         ?C0125:
+                                           ; SOURCE LINE # 579
+008C 850000      R     MOV     hours,recData
+                                           ; SOURCE LINE # 580
+008F 0500        R     INC     time_count
+                                           ; SOURCE LINE # 581
+0091 020000      R     LJMP    ?C0128
+                                           ; SOURCE LINE # 582
+0094         ?C0126:
+                                           ; SOURCE LINE # 583
+0094 850000      R     MOV     minutes,recData
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 43  
+
+                                           ; SOURCE LINE # 584
+0097 0500        R     INC     time_count
+                                           ; SOURCE LINE # 585
+0099 020000      R     LJMP    ?C0128
+                                           ; SOURCE LINE # 586
+009C         ?C0127:
+                                           ; SOURCE LINE # 587
+009C 850000      R     MOV     seconds,recData
+                                           ; SOURCE LINE # 588
+009F 0500        R     INC     time_count
+                                           ; SOURCE LINE # 589
+00A1 5398EF            ANL     SCON,#0EFH
+                                           ; SOURCE LINE # 590
+00A4 53A8EF            ANL     IE,#0EFH
+                                           ; SOURCE LINE # 591
+00A7 750000      R     MOV     cur_database_ptr,#00H
+00AA 750000      R     MOV     cur_database_ptr+01H,#00H
+00AD 750000      R     MOV     cur_database_ptr+02H,#00H
+                                           ; SOURCE LINE # 592
+00B0 020000      R     LJMP    ?C0128
+                                           ; SOURCE LINE # 593
+                                           ; SOURCE LINE # 594
+00B3         ?C0123:
+00B3 E500        R     MOV     A,recData
+00B5 B41B1C            CJNE    A,#01BH,?C0129
+                                           ; SOURCE LINE # 595
+00B8 E500        R     MOV     A,data_count
+00BA 7010              JNZ     ?C0130
+                                           ; SOURCE LINE # 596
+00BC 7B01              MOV     R3,#01H
+00BE         ?C0165:
+00BE 7A00        R     MOV     R2,#HIGH sys_err_str
+00C0 7900        R     MOV     R1,#LOW sys_err_str
+00C2 120000      R     LCALL   _?fill_display_buf
+                                           ; SOURCE LINE # 597
+00C5 120000      R     LCALL   _?display_refresh
+                                           ; SOURCE LINE # 598
+00C8 D200        R     SETB    lock_sys
+                                           ; SOURCE LINE # 599
+00CA 8049              SJMP    ?C0137
+                                           ; SOURCE LINE # 600
+00CC         ?C0130:
+                                           ; SOURCE LINE # 601
+00CC 900000      R     MOV     DPTR,#prog_time
+00CF 7401              MOV     A,#01H
+00D1 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 602
+00D2 803E              SJMP    ?C0128
+00D4         ?C0129:
+00D4 E500        R     MOV     A,data_count
+00D6 D3                SETB    C
+00D7 940B              SUBB    A,#0BH
+00D9 500C              JNC     ?C0132
+                                           ; SOURCE LINE # 603
+00DB 120000      R     LCALL   L?0191
+                                           ; SOURCE LINE # 604
+00DE 7401              MOV     A,#01H
+00E0 120000      R     LCALL   L?0187
+                                           ; SOURCE LINE # 605
+00E3 0500        R     INC     data_count
+                                           ; SOURCE LINE # 606
+00E5 802B              SJMP    ?C0128
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 44  
+
+00E7         ?C0132:
+00E7 E500        R     MOV     A,data_count
+00E9 D3                SETB    C
+00EA 940D              SUBB    A,#0DH
+00EC 5024              JNC     ?C0128
+                                           ; SOURCE LINE # 607
+00EE 120000      R     LCALL   L?0191
+                                           ; SOURCE LINE # 608
+00F1 E500        R     MOV     A,data_count
+00F3 B40D17            CJNE    A,#0DH,?C0135
+                                           ; SOURCE LINE # 609
+00F6 750000      R     MOV     data_count,#00H
+                                           ; SOURCE LINE # 610
+00F9 E4                CLR     A
+00FA 120000      R     LCALL   L?0192
+                                           ; SOURCE LINE # 611
+00FD 04                INC     A
+00FE 120000      R     LCALL   L?0188
+                                           ; SOURCE LINE # 612
+0101 AB00        R     MOV     R3,cur_database_ptr
+0103 FA                MOV     R2,A
+0104 A900        R     MOV     R1,cur_database_ptr+02H
+0106 E4                CLR     A
+0107 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 613
+010A 04                INC     A
+                                           ; SOURCE LINE # 614
+010B 8002              SJMP    ?C0162
+010D         ?C0135:
+                                           ; SOURCE LINE # 615
+010D 7401              MOV     A,#01H
+010F         ?C0162:
+010F 120000      R     LCALL   L?0188
+                                           ; SOURCE LINE # 616
+0112         ?C0128:
+                                           ; SOURCE LINE # 617
+0112         ?C0166:
+0112 5398FE            ANL     SCON,#0FEH
+                                           ; SOURCE LINE # 618
+                                           ; SOURCE LINE # 619
+                                           ; SOURCE LINE # 620
+                                           ; SOURCE LINE # 621
+0115         ?C0137:
+0115 D0D0              POP     PSW
+0117 D082              POP     DPL
+0119 D083              POP     DPH
+011B D0E0              POP     ACC
+011D 32                RETI    
+             ; FUNCTION serial (END)
+
+             ; FUNCTION init (BEGIN)
+                                           ; SOURCE LINE # 627
+                                           ; SOURCE LINE # 630
+0000 758130            MOV     SP,#030H
+                                           ; SOURCE LINE # 632
+0003 758922            MOV     TMOD,#022H
+                                           ; SOURCE LINE # 633
+0006 758DFA            MOV     TH1,#0FAH
+                                           ; SOURCE LINE # 634
+0009 758C07            MOV     TH0,#07H
+                                           ; SOURCE LINE # 635
+000C 758A0D            MOV     TL0,#0DH
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 45  
+
+                                           ; SOURCE LINE # 636
+000F 758845            MOV     TCON,#045H
+                                           ; SOURCE LINE # 638
+0012 E4                CLR     A
+0013 F587              MOV     PCON,A
+                                           ; SOURCE LINE # 639
+0015 759880            MOV     SCON,#080H
+                                           ; SOURCE LINE # 642
+0018 900000      R     MOV     DPTR,#product_database+03E80H
+001B 741B              MOV     A,#01BH
+001D F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 643
+001E 120000      R     LCALL   L?0214
+                                           ; SOURCE LINE # 644
+0021 120000      R     LCALL   L?0198
+                                           ; SOURCE LINE # 645
+0024 750001      R     MOV     cur_bill_ptr,#01H
+0027 750000      R     MOV     cur_bill_ptr+01H,#HIGH current_bill
+002A 750000      R     MOV     cur_bill_ptr+02H,#LOW current_bill
+                                           ; SOURCE LINE # 646
+002D 750001      R     MOV     cur_sales_ptr,#01H
+0030 750000      R     MOV     cur_sales_ptr+01H,#HIGH sales_data+036B0H
+0033 750000      R     MOV     cur_sales_ptr+02H,#LOW sales_data+036B0H
+                                           ; SOURCE LINE # 649
+0036 75B80A            MOV     IP,#0AH
+                                           ; SOURCE LINE # 650
+0039 75A89F            MOV     IE,#09FH
+                                           ; SOURCE LINE # 651
+003C 22                RET     
+             ; FUNCTION init (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 656
+                                           ; SOURCE LINE # 657
+0000 120000      R     LCALL   init
+0003         ?C0139:
+                                           ; SOURCE LINE # 658
+                                           ; SOURCE LINE # 659
+0003 3000FD      R     JNB     lock_sys,?C0139
+0006 E4                CLR     A
+0007 F5A8              MOV     IE,A
+                                           ; SOURCE LINE # 660
+0009 80F8              SJMP    ?C0139
+             ; FUNCTION main (END)
+
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 46  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+displayA_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002AH  1
+cur_sales_ptr. . . . . . . . . . . . .  PUBLIC   DATA   PTR      0000H  3
+displayB_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002CH  1
+displayA_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0029H  1
+displayC_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002EH  1
+displayB_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002BH  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+displayD_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0030H  1
+displayC_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002DH  1
+cur_sum. . . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    0003H  2
+displayE_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0032H  1
+displayD_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   002FH  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+serial . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+displayF_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0034H  1
+displayE_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0031H  1
+counter. . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+display_contr. . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8007H  1
+displayG_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0036H  1
+displayF_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0033H  1
+err_str. . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0000H  17
+displayH_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0038H  1
+displayG_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0035H  1
+displayI_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003AH  1
+displayH_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0037H  1
+select_seg10 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000AH  1
+displayJ_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003CH  1
+displayI_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0039H  1
+select_seg11 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000BH  1
+displayK_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003EH  1
+displayJ_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003BH  1
+select_seg12 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000CH  1
+cur_bill_ptr . . . . . . . . . . . . .  PUBLIC   DATA   PTR      0005H  3
+minutes. . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   0008H  1
+displayL_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0040H  1
+displayK_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003DH  1
+select_seg13 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000DH  1
+displayM_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0042H  1
+displayL_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   003FH  1
+select_seg14 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000EH  1
+displayN_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0044H  1
+displayM_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0041H  1
+select_seg15 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   000FH  1
+counter_mode . . . . . . . . . . . . .  PUBLIC   DATA   CHAR     0009H  1
+displayO_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0046H  1
+displayN_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0043H  1
+select_seg16 . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0010H  1
+current_bill . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0011H  512
+displayP_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0048H  1
+displayO_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0045H  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+displayQ_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004AH  1
+displayP_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0047H  1
+displayR_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004CH  1
+displayQ_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0049H  1
+displayS_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004EH  1
+displayR_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004BH  1
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 47  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+displayT_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0050H  1
+displayS_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004DH  1
+isCr . . . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0000H  1
+displayU_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0052H  1
+displayT_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   004FH  1
+displayV_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0054H  1
+displayU_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0051H  1
+sys_amount_str . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0211H  17
+displayW_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0056H  1
+displayV_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0053H  1
+displayX_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0058H  1
+displayW_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0055H  1
+clkDisplay . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   000AH  1
+displayY_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   005AH  1
+displayX_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0057H  1
+sales_data . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0222H  14000
+displayZ_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   005CH  1
+displayY_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0059H  1
+displayZ_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   005BH  1
+display_null . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0012H  1
+IP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+bill_price . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   000BH  1
+cur_product_offset . . . . . . . . . .  PUBLIC   XDATA  PTR      38D2H  3
+cur_database_ptr . . . . . . . . . . .  PUBLIC   DATA   PTR      000CH  3
+product_database . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    38D5H  16001
+have_paper . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0001H  1
+SP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0081H  1
+_?fill_display_buf . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  src. . . . . . . . . . . . . . . . .  AUTO     IDATA  PTR      0004H  3
+  display_ptr. . . . . . . . . . . . .  AUTO     IDATA  PTR      0000H  3
+  dif. . . . . . . . . . . . . . . . .  AUTO     IDATA  U_CHAR   0003H  1
+sys_total_str. . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    7756H  17
+main . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+scan . . . . . . . . . . . . . . . . .  PUBLIC   CODE   ARRAY    006FH  4
+total. . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    000FH  2
+numChar_to_print . . . . . . . . . . .  PUBLIC   DATA   U_INT    0011H  2
+cur_product_price. . . . . . . . . . .  PUBLIC   DATA   U_INT    0013H  2
+isFunction . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0002H  1
+data_count . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   0015H  1
+stackStart . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   7767H  1
+programming. . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0003H  1
+setup_sales_data . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  num. . . . . . . . . . . . . . . . .  AUTO     DATA   PTR      0000H  3
+error. . . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0004H  1
+isPrinting . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0005H  1
+cur_item_to_send . . . . . . . . . . .  PUBLIC   DATA   PTR      0016H  3
+print. . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+time . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+SBUF . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+show_clock . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0006H  1
+hours. . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   0019H  1
+key_portA. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8000H  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+key_portB. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8001H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 48  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+init . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+key_portC. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8002H  1
+recData. . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   001AH  1
+_?copy_string. . . . . . . . . . . . .  PUBLIC   CODE   PROC     000AH  -----
+  length . . . . . . . . . . . . . . .  AUTO     IDATA  U_INT    0000H  2
+  dst. . . . . . . . . . . . . . . . .  AUTO     IDATA  PTR      0002H  3
+  src. . . . . . . . . . . . . . . . .  AUTO     IDATA  PTR      0005H  3
+keys . . . . . . . . . . . . . . . . .  PUBLIC   CODE   ARRAY    005FH  16
+time_count . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   001BH  1
+cur_amount . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    001CH  2
+displayDD_b. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0028H  1
+char_cnt . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   001EH  1
+sys_err_str. . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    7768H  17
+displayDD_c. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0027H  1
+prog_time. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   7779H  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+_?display_refresh. . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  seg_ptr. . . . . . . . . . . . . . .  AUTO     IDATA  PTR      0000H  3
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+amount_str . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    777AH  17
+key_contr. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8003H  1
+unselected_seg . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0011H  1
+isReady. . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0007H  1
+isAmount . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0008H  1
+select_seg0. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0000H  1
+keyboard . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  key. . . . . . . . . . . . . . . . .  AUTO     DATA   U_CHAR   0000H  1
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_CHAR   0001H  1
+  temp . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  keyEnd . . . . . . . . . . . . . . .  LABEL    CODE   LABEL    -----  -----
+  errorLab . . . . . . . . . . . . . .  LABEL    CODE   LABEL    -----  -----
+select_seg1. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0001H  1
+data_str . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    778BH  17
+select_seg2. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0002H  1
+clkSec . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    001FH  2
+select_seg3. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0003H  1
+lad_cnt. . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   0021H  1
+display_buffer . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    779CH  34
+select_seg4. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0004H  1
+select_seg5. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0005H  1
+select_seg6. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0006H  1
+select_seg7. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0007H  1
+isChar . . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0009H  1
+select_seg8. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0008H  1
+select_seg9. . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0009H  1
+_?value_to_string. . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  value. . . . . . . . . . . . . . . .  AUTO     IDATA  U_INT    0005H  2
+  destination. . . . . . . . . . . . .  AUTO     IDATA  PTR      0007H  3
+  val. . . . . . . . . . . . . . . . .  AUTO     IDATA  U_INT    0000H  2
+  dst. . . . . . . . . . . . . . . . .  AUTO     IDATA  PTR      0002H  3
+cur_product_id . . . . . . . . . . . .  PUBLIC   DATA   U_INT    0022H  2
+cur_buffer_ptr . . . . . . . . . . . .  PUBLIC   DATA   PTR      0024H  3
+display_portA. . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8004H  1
+display_portB. . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8005H  1
+programming_str. . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    77BEH  17
+display_portC. . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   8006H  1
+C51 COMPILER V9.03   PROGRAM8051                                                           03/25/2011 11:39:10 PAGE 49  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+i. . . . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    0027H  2
+print_ptr. . . . . . . . . . . . . . .  PUBLIC   DATA   PTR      0029H  3
+j. . . . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    002CH  2
+time_str . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    77CFH  17
+lock_sys . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      000AH  1
+protocol_phase . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   002EH  1
+displayMul_b . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   005EH  1
+display0_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0014H  1
+displayMul_c . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   005DH  1
+display1_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0016H  1
+display0_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0013H  1
+isLad. . . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      000BH  1
+display2_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0018H  1
+display1_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0015H  1
+display3_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001AH  1
+display2_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0017H  1
+time_to_string . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+display4_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001CH  1
+display3_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0019H  1
+sending_bill . . . . . . . . . . . . .  PUBLIC   DATA   BIT      000CH  1
+wait_str . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    77E0H  17
+display5_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001EH  1
+display4_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001BH  1
+seconds. . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   002FH  1
+display6_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0020H  1
+display5_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001DH  1
+display7_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0022H  1
+display6_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   001FH  1
+display8_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0024H  1
+display7_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0021H  1
+display9_b . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0026H  1
+display8_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0023H  1
+display9_c . . . . . . . . . . . . . .  PUBLIC   CODE   U_CHAR   0025H  1
+serialF0 . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      000DH  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+cr_cnt . . . . . . . . . . . . . . . .  PUBLIC   DATA   U_CHAR   0030H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2495    ----
+   CONSTANT SIZE    =    115    ----
+   XDATA SIZE       =  30705    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     49       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =     14    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

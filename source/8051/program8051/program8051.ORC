@@ -1,0 +1,10 @@
+$1E0008CF  _fill_display_buf
+$1E000CFF  _value_to_string
+$80000000  counter
+$1E00080E  display_refresh
+$0E000800  init
+$0E000800  main
+$80000000  print
+$1E000CFF  setup_sales_data
+$1E000CCF  time
+$1E000C00  time_to_string

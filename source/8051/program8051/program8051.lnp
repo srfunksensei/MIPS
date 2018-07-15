@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"program8051.obj" 
+TO "program8051" 
+XDATA( 0X0000-0X7FFF )
